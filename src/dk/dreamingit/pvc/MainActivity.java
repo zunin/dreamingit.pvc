@@ -74,7 +74,10 @@ public final class MainActivity extends FragmentActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		Intent intent = getIntent();
+		String message = intent.getStringExtra(SelectTeamActivity.EXTRA_MESSAGE);
 		mMessageView = (TextView) findViewById(R.id.message_text);
+		mMessageView.setText(message);
 	}
 	
     @Override
@@ -144,7 +147,7 @@ public final class MainActivity extends FragmentActivity
 
 	@Override
 	public void onLocationChanged(Location location) {
-		mMessageView.setText("Location = " + location);
+		// mMessageView.setText("Location = " + location);
 		
 	}
 
