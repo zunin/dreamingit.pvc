@@ -16,9 +16,21 @@
 
 package dk.dreamingit.pvc;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
+
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -28,6 +40,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 import dk.dreamingit.pvc.R;
 import dk.dreamingit.pvc.view.FeatureView;
 
@@ -36,142 +50,122 @@ import dk.dreamingit.pvc.view.FeatureView;
  * <p>
  * The main layout lists the demonstrated features, with buttons to launch them.
  */
-public final class MainActivity extends ListActivity {
+public final class MainActivity extends FragmentActivity
+										implements
+										ConnectionCallbacks,
+										OnConnectionFailedListener,
+										LocationListener,
+										OnMyLocationButtonClickListener {
+	
+	private GoogleMap mMap;
 
-    /**
-     * A simple POJO that holds the details about the demo that are used by the List Adapter.
-     */
-    private static class DemoDetails {
-        /**
-         * The resource id of the title of the demo.
-         */
-        private final int titleId;
-
-        /**
-         * The resources id of the description of the demo.
-         */
-        private final int descriptionId;
-
-        /**
-         * The demo activity's class.
-         */
-        private final Class<? extends FragmentActivity> activityClass;
-
-        public DemoDetails(
-                int titleId, int descriptionId, Class<? extends FragmentActivity> activityClass) {
-            super();
-            this.titleId = titleId;
-            this.descriptionId = descriptionId;
-            this.activityClass = activityClass;
-        }
+    private LocationClient mLocationClient;
+    private TextView mMessageView;
+    
+    // These settings are the same as the settings for the map. They will in fact give you updates
+    // at the maximal rates currently possible.
+    private static final LocationRequest REQUEST = LocationRequest.create()
+            .setInterval(5000)         // 5 seconds
+            .setFastestInterval(16)    // 16ms = 60fps
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    
+    
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		mMessageView = (TextView) findViewById(R.id.message_text);
+	}
+	
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
+        setUpLocationClientIfNeeded();
+        mLocationClient.connect();
     }
 
-    /**
-     * A custom array adapter that shows a {@link FeatureView} containing details about the demo.
-     */
-    private static class CustomArrayAdapter extends ArrayAdapter<DemoDetails> {
-
-        /**
-         * @param demos An array containing the details of the demos to be displayed.
-         */
-        public CustomArrayAdapter(Context context, DemoDetails[] demos) {
-            super(context, R.layout.feature, R.id.title, demos);
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mLocationClient != null) {
+            mLocationClient.disconnect();
         }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            FeatureView featureView;
-            if (convertView instanceof FeatureView) {
-                featureView = (FeatureView) convertView;
-            } else {
-                featureView = new FeatureView(getContext());
+    }
+    
+    private void setUpMapIfNeeded() {
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (mMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMap();
+            // Check if we were successful in obtaining the map.
+            if (mMap != null) {
+                mMap.setMyLocationEnabled(true);
+                mMap.setOnMyLocationButtonClickListener(this);
             }
-
-            DemoDetails demo = getItem(position);
-
-            featureView.setTitleId(demo.titleId);
-            featureView.setDescriptionId(demo.descriptionId);
-
-            return featureView;
         }
     }
 
-    private static final DemoDetails[] demos = {new DemoDetails(
-            R.string.basic_map, R.string.basic_description, BasicMapActivity.class),
-            new DemoDetails(R.string.camera_demo, R.string.camera_description,
-                    CameraDemoActivity.class),
-            new DemoDetails(R.string.events_demo, R.string.events_description,
-                    EventsDemoActivity.class),
-            new DemoDetails(R.string.layers_demo, R.string.layers_description,
-                    LayersDemoActivity.class),
-            new DemoDetails(
-                    R.string.locationsource_demo, R.string.locationsource_description,
-                    LocationSourceDemoActivity.class),
-            new DemoDetails(R.string.my_location_demo, R.string.my_location_description,
-                    MyLocationDemoActivity.class),
-            new DemoDetails(R.string.uisettings_demo, R.string.uisettings_description,
-                    UiSettingsDemoActivity.class),
-            new DemoDetails(R.string.groundoverlay_demo, R.string.groundoverlay_description,
-                    GroundOverlayDemoActivity.class),
-            new DemoDetails(R.string.marker_demo, R.string.marker_description,
-                    MarkerDemoActivity.class),
-            new DemoDetails(R.string.polygon_demo, R.string.polygon_description,
-                    PolygonDemoActivity.class),
-            new DemoDetails(R.string.polyline_demo, R.string.polyline_description,
-                    PolylineDemoActivity.class),
-            new DemoDetails(R.string.circle_demo, R.string.circle_description,
-                    CircleDemoActivity.class),
-            new DemoDetails(R.string.tile_overlay_demo, R.string.tile_overlay_description,
-                    TileOverlayDemoActivity.class),
-            new DemoDetails(R.string.options_demo, R.string.options_description,
-                    OptionsDemoActivity.class),
-            new DemoDetails(R.string.multi_map_demo, R.string.multi_map_description,
-                    MultiMapDemoActivity.class),
-            new DemoDetails(R.string.retain_map, R.string.retain_map_description,
-                    RetainMapActivity.class),
-            new DemoDetails(R.string.raw_mapview_demo, R.string.raw_mapview_description,
-                    RawMapViewDemoActivity.class),
-            new DemoDetails(R.string.programmatic_demo, R.string.programmatic_description,
-                    ProgrammaticDemoActivity.class),
-            new DemoDetails(R.string.visible_region_demo, R.string.visible_region_description,
-                    VisibleRegionDemoActivity.class),
-            new DemoDetails(R.string.save_state_demo, R.string.save_state_description,
-                    SaveStateDemoActivity.class),
-            new DemoDetails(R.string.snapshot_demo, R.string.snapshot_description,
-                    SnapshotDemoActivity.class),
-            new DemoDetails(R.string.mapinpager_demo, R.string.mapinpager_description,
-                    MapInPagerActivity.class)};
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-
-        ListAdapter adapter = new CustomArrayAdapter(this, demos);
-
-        setListAdapter(adapter);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        if (item.getItemId() == R.id.menu_legal) {
-            startActivity(new Intent(this, LegalInfoActivity.class));
-            return true;
+    /**
+     * Button to get current Location. This demonstrates how to get the current Location as required
+     * without needing to register a LocationListener.
+     */
+    public void showMyLocation(View view) {
+        if (mLocationClient != null && mLocationClient.isConnected()) {
+            String msg = "Location = " + mLocationClient.getLastLocation();
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
         }
-        return super.onOptionsItemSelected(item);
+    }
+    
+    private void setUpLocationClientIfNeeded() {
+        if (mLocationClient == null) {
+            mLocationClient = new LocationClient(
+                    getApplicationContext(),
+                    this,  // ConnectionCallbacks
+                    this); // OnConnectionFailedListener
+        }
     }
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        DemoDetails demo = (DemoDetails) getListAdapter().getItem(position);
-        startActivity(new Intent(this, demo.activityClass));
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.activity_main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onMyLocationButtonClick() {
+		Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		mMessageView.setText("Location = " + location);
+		
+	}
+
+	@Override
+	public void onConnectionFailed(ConnectionResult result) {
+		// Don't do anything
+		
+	}
+
+	@Override
+	public void onConnected(Bundle connectionHint) {
+		 mLocationClient.requestLocationUpdates(
+	                REQUEST,
+	                this);  // LocationListener
+		
+	}
+
+	@Override
+	public void onDisconnected() {
+		// Do nothing
+		
+	}
+
 }
