@@ -147,6 +147,16 @@ containing a value of this type.
         public static final int common_signin_btn_text_dark=0x7f04000a;
         public static final int common_signin_btn_text_light=0x7f04000b;
     }
+    public static final class dimen {
+        /**  Default screen margins, per the Android Design guidelines. 
+
+         Customize dimensions originally defined in res/values/dimens.xml (such as
+         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
+    
+         */
+        public static final int activity_horizontal_margin=0x7f080000;
+        public static final int activity_vertical_margin=0x7f080001;
+    }
     public static final class drawable {
         public static final int arrow=0x7f020000;
         public static final int badge_nsw=0x7f020001;
@@ -187,6 +197,7 @@ containing a value of this type.
         public static final int newark_nj_1922=0x7f020024;
     }
     public static final class id {
+        public static final int action_settings=0x7f050040;
         public static final int alphaSeekBar=0x7f050013;
         public static final int animate=0x7f050007;
         public static final int badge=0x7f050015;
@@ -253,35 +264,40 @@ containing a value of this type.
         public static final int zoom_out=0x7f05000d;
     }
     public static final class layout {
-        public static final int basic_demo=0x7f030000;
-        public static final int camera_demo=0x7f030001;
-        public static final int circle_demo=0x7f030002;
-        public static final int custom_info_contents=0x7f030003;
-        public static final int custom_info_window=0x7f030004;
-        public static final int events_demo=0x7f030005;
-        public static final int feature=0x7f030006;
-        public static final int ground_overlay_demo=0x7f030007;
-        public static final int layers_demo=0x7f030008;
-        public static final int legal_info=0x7f030009;
-        public static final int main=0x7f03000a;
-        public static final int map_in_pager=0x7f03000b;
-        public static final int marker_demo=0x7f03000c;
-        public static final int multimap_demo=0x7f03000d;
-        public static final int my_location_demo=0x7f03000e;
-        public static final int options_demo=0x7f03000f;
-        public static final int polygon_demo=0x7f030010;
-        public static final int polyline_demo=0x7f030011;
-        public static final int raw_mapview_demo=0x7f030012;
-        public static final int save_state_demo=0x7f030013;
-        public static final int snapshot_demo=0x7f030014;
-        public static final int text_fragment=0x7f030015;
-        public static final int ui_settings_demo=0x7f030016;
-        public static final int visible_region_demo=0x7f030017;
+        public static final int activity_select_team=0x7f030000;
+        public static final int activity_start_game=0x7f030001;
+        public static final int basic_demo=0x7f030002;
+        public static final int camera_demo=0x7f030003;
+        public static final int circle_demo=0x7f030004;
+        public static final int custom_info_contents=0x7f030005;
+        public static final int custom_info_window=0x7f030006;
+        public static final int events_demo=0x7f030007;
+        public static final int feature=0x7f030008;
+        public static final int ground_overlay_demo=0x7f030009;
+        public static final int layers_demo=0x7f03000a;
+        public static final int legal_info=0x7f03000b;
+        public static final int main=0x7f03000c;
+        public static final int map_in_pager=0x7f03000d;
+        public static final int marker_demo=0x7f03000e;
+        public static final int multimap_demo=0x7f03000f;
+        public static final int my_location_demo=0x7f030010;
+        public static final int options_demo=0x7f030011;
+        public static final int polygon_demo=0x7f030012;
+        public static final int polyline_demo=0x7f030013;
+        public static final int raw_mapview_demo=0x7f030014;
+        public static final int save_state_demo=0x7f030015;
+        public static final int snapshot_demo=0x7f030016;
+        public static final int text_fragment=0x7f030017;
+        public static final int ui_settings_demo=0x7f030018;
+        public static final int visible_region_demo=0x7f030019;
     }
     public static final class menu {
-        public static final int activity_main=0x7f080000;
+        public static final int activity_main=0x7f090000;
+        public static final int select_team=0x7f090001;
+        public static final int start_game=0x7f090002;
     }
     public static final class string {
+        public static final int action_settings=0x7f060082;
         public static final int alpha=0x7f060019;
         public static final int animate=0x7f06001a;
         /**   Title for notification shown when GooglePlayServices needs to be
@@ -446,19 +462,28 @@ containing a value of this type.
         public static final int save_state_description=0x7f060060;
         public static final int save_state_instructions=0x7f060061;
         public static final int scroll=0x7f060062;
+        /**  SelectTeamActivity 
+         */
+        public static final int select_team_into=0x7f060086;
         public static final int snapshot_clear_button=0x7f060063;
         public static final int snapshot_demo=0x7f060064;
         public static final int snapshot_description=0x7f060065;
         public static final int snapshot_holder_description=0x7f060066;
         public static final int snapshot_take_button=0x7f060067;
+        public static final int start_game_btn=0x7f060084;
+        public static final int start_game_description=0x7f060083;
         public static final int stop_animation=0x7f060068;
         public static final int stroke_width=0x7f060069;
         public static final int swipe=0x7f06006a;
         public static final int tap_instructions=0x7f06006b;
+        public static final int team_usa=0x7f060087;
+        public static final int team_ussr=0x7f060088;
         public static final int terrain=0x7f06006c;
         public static final int tile_overlay_demo=0x7f06006d;
         public static final int tile_overlay_description=0x7f06006e;
         public static final int tilt=0x7f06006f;
+        public static final int title_activity_select_team=0x7f060085;
+        public static final int title_activity_start_game=0x7f060081;
         public static final int traffic=0x7f060070;
         public static final int transparency=0x7f060071;
         public static final int uisettings_demo=0x7f060072;
