@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">The Great Space Race!</string>
+	<string name="app_name">Det store rumkapløb!</string>
     <string name="title_activity_start_game">Space Race!</string>
     <string name="action_settings">Settings</string>
     <string name="start_game_description">Welcome to the Great Space Race!</string>
