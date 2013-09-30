@@ -297,9 +297,10 @@ containing a value of this type.
         public static final int start_game=0x7f090002;
     }
     public static final class string {
-        public static final int action_settings=0x7f060082;
+        public static final int action_settings=0x7f060083;
         public static final int alpha=0x7f060019;
         public static final int animate=0x7f06001a;
+        public static final int app_name=0x7f060081;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -464,26 +465,26 @@ containing a value of this type.
         public static final int scroll=0x7f060062;
         /**  SelectTeamActivity 
          */
-        public static final int select_team_into=0x7f060086;
+        public static final int select_team_into=0x7f060087;
         public static final int snapshot_clear_button=0x7f060063;
         public static final int snapshot_demo=0x7f060064;
         public static final int snapshot_description=0x7f060065;
         public static final int snapshot_holder_description=0x7f060066;
         public static final int snapshot_take_button=0x7f060067;
-        public static final int start_game_btn=0x7f060084;
-        public static final int start_game_description=0x7f060083;
+        public static final int start_game_btn=0x7f060085;
+        public static final int start_game_description=0x7f060084;
         public static final int stop_animation=0x7f060068;
         public static final int stroke_width=0x7f060069;
         public static final int swipe=0x7f06006a;
         public static final int tap_instructions=0x7f06006b;
-        public static final int team_usa=0x7f060087;
-        public static final int team_ussr=0x7f060088;
+        public static final int team_usa=0x7f060088;
+        public static final int team_ussr=0x7f060089;
         public static final int terrain=0x7f06006c;
         public static final int tile_overlay_demo=0x7f06006d;
         public static final int tile_overlay_description=0x7f06006e;
         public static final int tilt=0x7f06006f;
-        public static final int title_activity_select_team=0x7f060085;
-        public static final int title_activity_start_game=0x7f060081;
+        public static final int title_activity_select_team=0x7f060086;
+        public static final int title_activity_start_game=0x7f060082;
         public static final int traffic=0x7f060070;
         public static final int transparency=0x7f060071;
         public static final int uisettings_demo=0x7f060072;
