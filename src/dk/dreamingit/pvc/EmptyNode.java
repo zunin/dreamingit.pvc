@@ -12,8 +12,10 @@ import android.content.Intent;
 import android.content.res.Resources;
 
 public abstract class EmptyNode extends Activity {
-		private TextView title, storyView;
+		private TextView titleView, storyView;
 		private Resources res;
+		private int node;
+		private String team;
 
 	
 		@Override
@@ -24,15 +26,13 @@ public abstract class EmptyNode extends Activity {
 			res = getResources();
 			Intent intent = getIntent();
 			
-			title = (TextView) findViewById(R.id.node_title);
+			titleView = (TextView) findViewById(R.id.node_title);
 			storyView = (TextView) findViewById(R.id.node_story);
 			
-			
-			String team = intent.getStringExtra(SelectTeamActivity.EXTRA_MESSAGE);
-			title.setText(team);
-			
-			ArrayList<Integer> story = intent.getIntegerArrayListExtra("story_list");
-			storyView.setText(story.iterator().next());
+			node = intent.getIntExtra(SelectTeamActivity.CURRENT_NODE, node);
+			team = intent.getStringExtra(SelectTeamActivity.EXTRA_MESSAGE);
+			titleView.setText(team + "Node:" + node);
+			storyView.setText(SelectTeamActivity.story.get(node));
 			
 			drawMascot(team);
 			
@@ -43,6 +43,14 @@ public abstract class EmptyNode extends Activity {
 			// Inflate the menu; this adds items to the action bar if it is present.
 			getMenuInflater().inflate(R.menu.start_node, menu);
 			return true;
+		}
+		
+		public Intent createNextIntent(Class cls)
+		{
+			Intent nextIntent = new Intent(this, cls);
+			nextIntent.putExtra(SelectTeamActivity.CURRENT_NODE, node+1);
+			nextIntent.putExtra(SelectTeamActivity.EXTRA_MESSAGE, team);
+			return nextIntent;
 		}
 		
 		private void drawMascot(String team)

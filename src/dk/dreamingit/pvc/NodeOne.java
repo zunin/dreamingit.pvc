@@ -3,12 +3,12 @@ package dk.dreamingit.pvc;
 import android.content.Intent;
 import android.view.View;
 
-public class IntroNode extends EmptyNode
+public class NodeOne extends EmptyNode
 {
 
 	@Override
 	public void goNext(View V) {
-		Intent intent = createNextIntent(NodeOne.class);
+		Intent intent = createNextIntent(SelectTeamActivity.class);
 		startActivity(intent);
 		
 	}

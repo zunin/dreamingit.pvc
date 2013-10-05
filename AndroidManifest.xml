@@ -50,10 +50,16 @@
         </activity>
         <activity android:name="dk.dreamingit.pvc.MainActivity" >
         </activity>
+        <!-- Nodes -->
         <activity android:name="dk.dreamingit.pvc.EmptyNode" >
         </activity>
-        <activity android:name="dk.dreamingit.pvc.IntroNode" >
+        <activity android:name="dk.dreamingit.pvc.IntroNode"
+           android:label="Intro" >
         </activity>
+        <activity android:name="dk.dreamingit.pvc.NodeOne" 
+            android:label="Node1">
+        </activity>
+        <!-- End Nodes -->
         <activity
             android:name="dk.dreamingit.pvc.BasicMapActivity"
             android:label="@string/basic_map" />

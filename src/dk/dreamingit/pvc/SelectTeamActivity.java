@@ -10,23 +10,19 @@ import android.view.View;
 
 public class SelectTeamActivity extends Activity {
 	public final static String EXTRA_MESSAGE = "dk.dreamingit.pvc.TEAM";
+	public final static String CURRENT_NODE = "dk.dreamingit.pvc.NODE";
+	public static ArrayList<Integer> story;
+	
+	private final static ArrayList<Integer> USAStory = new ArrayList<Integer>();
+	private final static ArrayList<Integer> USSRStory = new ArrayList<Integer>();
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_team);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.select_team, menu);
-		return true;
-	}
-
-	public void startUSSR(View v)
-	{
-		ArrayList<Integer> USSRStory = new ArrayList<Integer>();
+		
+		//USSR
 		USSRStory.add(R.string.ussr_S);
 		USSRStory.add(R.string.ussr_1);
 		USSRStory.add(R.string.ussr_15);
@@ -38,16 +34,7 @@ public class SelectTeamActivity extends Activity {
 		USSRStory.add(R.string.ussr_Ewin);
 		USSRStory.add(R.string.ussr_Elose);
 		
- 		Intent intent = new Intent(this, IntroNode.class);
-		intent.putExtra(EXTRA_MESSAGE, "USSR");
-		intent.putIntegerArrayListExtra("story_list", USSRStory);
-		
-		startActivity(intent);
-	}
-	
-	public void startUSA(View v)
-	{
-		ArrayList<Integer> USAStory = new ArrayList<Integer>();
+		//USA
 		USAStory.add(R.string.usa_S);
 		USAStory.add(R.string.usa_1);
 		USAStory.add(R.string.usa_15);
@@ -58,10 +45,33 @@ public class SelectTeamActivity extends Activity {
 		USAStory.add(R.string.usa_5);
 		USAStory.add(R.string.usa_Ewin);
 		USAStory.add(R.string.usa_Elose);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.select_team, menu);
+		return true;
+	}
+
+	public void startUSSR(View v)
+	{
+		
+		
+ 		Intent intent = new Intent(this, IntroNode.class);
+		intent.putExtra(EXTRA_MESSAGE, "USSR");
+		story = USSRStory;
+		
+		startActivity(intent);
+	}
+	
+	public void startUSA(View v)
+	{
+
 		
 		Intent intent = new Intent(this, IntroNode.class);
 		intent.putExtra(EXTRA_MESSAGE, "USA");
-		intent.putIntegerArrayListExtra("story_list", USAStory);
+		story = USAStory;
 		
 		startActivity(intent);
 	}
