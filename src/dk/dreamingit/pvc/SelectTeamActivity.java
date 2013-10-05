@@ -1,5 +1,7 @@
 package dk.dreamingit.pvc;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -24,16 +26,42 @@ public class SelectTeamActivity extends Activity {
 
 	public void startUSSR(View v)
 	{
-		Intent intent = new Intent(this, StartNode.class);
+		ArrayList<Integer> USSRStory = new ArrayList<Integer>();
+		USSRStory.add(R.string.ussr_S);
+		USSRStory.add(R.string.ussr_1);
+		USSRStory.add(R.string.ussr_15);
+		USSRStory.add(R.string.ussr_2);
+		USSRStory.add(R.string.ussr_3);
+		USSRStory.add(R.string.ussr_35);
+		USSRStory.add(R.string.ussr_4);
+		USSRStory.add(R.string.ussr_5);
+		USSRStory.add(R.string.ussr_Ewin);
+		USSRStory.add(R.string.ussr_Elose);
+		
+ 		Intent intent = new Intent(this, IntroNode.class);
 		intent.putExtra(EXTRA_MESSAGE, "USSR");
+		intent.putIntegerArrayListExtra("story_list", USSRStory);
 		
 		startActivity(intent);
 	}
 	
 	public void startUSA(View v)
 	{
-		Intent intent = new Intent(this, StartNode.class);
+		ArrayList<Integer> USAStory = new ArrayList<Integer>();
+		USAStory.add(R.string.usa_S);
+		USAStory.add(R.string.usa_1);
+		USAStory.add(R.string.usa_15);
+		USAStory.add(R.string.usa_2);
+		USAStory.add(R.string.usa_3);
+		USAStory.add(R.string.usa_35);
+		USAStory.add(R.string.usa_4);
+		USAStory.add(R.string.usa_5);
+		USAStory.add(R.string.usa_Ewin);
+		USAStory.add(R.string.usa_Elose);
+		
+		Intent intent = new Intent(this, IntroNode.class);
 		intent.putExtra(EXTRA_MESSAGE, "USA");
+		intent.putIntegerArrayListExtra("story_list", USAStory);
 		
 		startActivity(intent);
 	}

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Meta strings -->
     <string name="app_name">Det store rumkapløb!</string>
     <string name="title_activity_start_game">Space Race!</string>
     <string name="action_settings">Settings</string>
@@ -13,6 +14,11 @@
     <string name="team_usa">USA</string>
     <string name="team_ussr">USSR</string>
     <string name="title_activity_start_node">StartNode</string>
+    
+    <!-- EmptyNode -->
+    <string name="node_btn">Videre</string>
+    
+    <!-- Hello world -->
     <string name="hello_world">Hello world!</string>
 
 </resources>
