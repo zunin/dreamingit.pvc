@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="coord_s">10.204931,56.167179</string>
+    <string name="coord_1USA">10.205518,56.167328</string>
+    <string name="coord_15USA">10.206717,56.167751</string>
+    <string name="coord_2">10.204797,56.168041</string>
+    <string name="coord_5">10.203606,56.169109</string>
+    <string name="coord_4USA">10.204260,56.168938</string>
+    <string name="coord_3USA">10.204754,56.168617</string>
+    <string name="coord_35USA">10.205119,56.168793</string>
+    <string name="coord_1USSR">10.204255,56.167179</string>
+    <string name="coord_15USSR">10.202656,56.167625</string>
+    <string name="coord_4USSR">10.203375,56.168850</string>
+    <string name="coord_3USSR">10.203826,56.168491</string>
+    <string name="coord_35USSR">10.203263,56.168468</string>
+    <string name="coord_EUSSR">10.202903,56.168938</string>
+    <string name="coord_EUSA">10.204271,56.169266</string>
+</resources>

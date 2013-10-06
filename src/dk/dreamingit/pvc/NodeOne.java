@@ -8,7 +8,7 @@ public class NodeOne extends EmptyNode
 
 	@Override
 	public void goNext(View V) {
-		Intent intent = createNextIntent(SelectTeamActivity.class);
+		Intent intent = createNextIntent(MainActivity.class);
 		startActivity(intent);
 		
 	}
