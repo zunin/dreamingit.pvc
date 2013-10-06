@@ -320,7 +320,7 @@ public final class MainActivity extends FragmentActivity
 			case 14:
 				return NodeEnd.class;		//End: USSR
 			case 15:
-				return NodeThree.class;		//Location: Nygaard
+				return NodeFourActivity.class;		//Location: Nygaard
 			default:
 				break;
 		}

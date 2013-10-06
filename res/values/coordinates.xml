@@ -15,4 +15,6 @@
     <string name="coord_35USSR">10.203263,56.168468</string>
     <string name="coord_EUSSR">10.202903,56.168938</string>
     <string name="coord_EUSA">10.204271,56.169266</string>
+    <string name="coord_4endUSSR">10.202630,56.168678</string>
+    <string name="coord_4endUSA">10.205022,56.169052</string>
 </resources>
