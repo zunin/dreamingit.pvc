@@ -11,4 +11,18 @@ public class NodeTwo extends EmptyNode
 		
 	}
 
+	@Override
+	protected void inflateNarrative() {
+		setTitle("");
+		
+		if (team.equals("USA"))
+		{
+			setStory(R.string.usa_2_1);
+		} else
+		{
+			setStory(R.string.ussr_2_1);
+		}
+		
+	}
+
 }

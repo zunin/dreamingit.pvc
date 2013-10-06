@@ -10,4 +10,18 @@ public class NodeFive extends EmptyNode {
 
 	}
 
+	@Override
+	protected void inflateNarrative() {
+		setTitle("");
+		
+		if (team.equals("USA"))
+		{
+			setStory(R.string.usa_5_1);
+		} else
+		{
+			setStory(R.string.ussr_5_1);
+		}
+		
+	}
+
 }

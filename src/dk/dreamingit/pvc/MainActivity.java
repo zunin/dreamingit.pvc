@@ -131,13 +131,6 @@ public final class MainActivity extends FragmentActivity
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
             }
-            //Put a ring on it - Nygaard
-            String coordinate = coordinateList.get(15);
-            double latitude = Double.valueOf(coordinate.substring(0, 8));
-			double longitude = Double.valueOf(coordinate.substring(10, 18));
-			
-			addHintOverlay(latitude, longitude, 10);
-            
         }
     }
 
@@ -202,19 +195,29 @@ public final class MainActivity extends FragmentActivity
 
 	@Override
 	public void onLocationChanged(Location location) {
+		/*
+		 //Put a ring on it - Nygaard
+        String coordinate = coordinateList.get(15);
+        double latitude = Double.valueOf(coordinate.substring(0, 8));
+		double longitude = Double.valueOf(coordinate.substring(10, 18));
+		
+		addHintOverlay(latitude, longitude, 10);
+        */
+		
 		for (String coordinate : coordinateList)
 		{
+			//Create a new location with coordinates from Nodes
 			double latitude = Double.valueOf(coordinate.substring(0, 8));
 			double longitude = Double.valueOf(coordinate.substring(10, 18));
 			Location nodeLoc = new Location("Node Location");
 			nodeLoc.setLatitude(latitude);
 			nodeLoc.setLongitude(longitude);
 			
-			if( location.distanceTo(nodeLoc) < 15)
+			//If you are within 2 meters of a post
+			if( location.distanceTo(nodeLoc) < location.getAccuracy()+2)
 			{
-				Toast.makeText(this, "YOU ARE AT A POST, DAMNIT", Toast.LENGTH_SHORT).show();
 				
-				Intent nextIntent = new Intent(this, NodeTwo.class);
+				Intent nextIntent = new Intent(this, getLocationNode(coordinate));
 				nextIntent.putExtra(SelectTeamActivity.CURRENT_NODE, node);
 				nextIntent.putExtra(SelectTeamActivity.EXTRA_MESSAGE, team);
 				startActivity(nextIntent);
@@ -247,6 +250,7 @@ public final class MainActivity extends FragmentActivity
 	
 	private void addHintOverlay(double latitude, double longitude, int radius)
 	{
+		//Random offset
 		Random r = new Random();
 		double rLati = offsetLatitude(r.nextInt(radius));
 		double rLong = offsetLonitude(r.nextInt(radius), longitude);
@@ -260,7 +264,7 @@ public final class MainActivity extends FragmentActivity
 			rLong = rLong * -1;
 		}
 		
-		
+		//Draw circle
 		mMap.addCircle(new CircleOptions()
 		.center(new LatLng(latitude+rLati, longitude+rLong))
 		.radius(radius)
@@ -315,6 +319,8 @@ public final class MainActivity extends FragmentActivity
 				return NodeEnd.class;		//End: USA
 			case 14:
 				return NodeEnd.class;		//End: USSR
+			case 15:
+				return NodeThree.class;		//Location: Nygaard
 			default:
 				break;
 		}

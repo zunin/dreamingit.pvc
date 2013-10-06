@@ -13,4 +13,18 @@ public class NodeOne extends EmptyNode
 		
 	}
 
+	@Override
+	protected void inflateNarrative() {
+		setTitle("");
+		
+		if (team.equals("USA"))
+		{
+			setStory(R.string.usa_intro_ham);
+		} else
+		{
+			setStory(R.string.ussr_intro_laika);
+		}
+		
+	}
+
 }

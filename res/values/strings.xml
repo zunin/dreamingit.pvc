@@ -2,23 +2,53 @@
 <resources>
 
     <!-- Meta strings -->
-    <string name="app_name">Det store rumkapløb!</string>
-    <string name="title_activity_start_game">Space Race!</string>
+    <string name="app_name">Det Store Rumkapløb!</string>
+    <string name="title_activity_start_game">Rumkapløb!</string>
     <string name="action_settings">Settings</string>
-    <string name="start_game_description">Welcome to the Great Space Race!</string>
-    <string name="start_game_btn">Start Game</string>
     <string name="title_activity_select_team">SelectTeamActivity</string>
 
+    <!-- StartGameActivity -->
+    <string name="start_game_description">Velkommen til Det Store Rumkapløb!</string>
+    <string name="start_game_btn">Start spillet</string>
+
     <!-- SelectTeamActivity -->
-    <string name="select_team_into">Pick a nationality!</string>
+    <string name="select_team_into">Vælg land!</string>
     <string name="team_usa">USA</string>
     <string name="team_ussr">USSR</string>
     <string name="title_activity_start_node">StartNode</string>
-    
+
     <!-- EmptyNode -->
     <string name="node_btn">Videre</string>
-    
+
     <!-- Hello world -->
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Hej verden!</string>
+
+    <!-- NodeThreeActivity -->
+    <string name="title_activity_node_three">NodeThreeActivity</string>
+    <string name="listenBonusText">Oversæt til tekst</string>
+    <string name="listenStoryText">Tryk på transmiter for at starte.</string>
+    <string name="listenButtonText">Transmiter</string>
+
+    <string-array name="voice_clues">
+        <item>Det andet hold har vores professor</item>
+        <item>Professoren har vigtig information om vores raket</item>
+        <item>Det er muligt at måle hvor professoren er</item>
+        <item>De må ikke finde Ray</item>
+        <item>Jo højere kliklydene er, jo tættere er de på professoren</item>
+    </string-array>
+    <string-array name="voice_keys">
+        <item>The other team has our professor</item>
+        <item>The professor has important information about our rocket</item>
+        <item>It is possible to measure where the professor is</item>
+        <item>They may not find Ray</item>
+        <item>The louder the clicking sounds, the closer they are to the professor</item>
+    </string-array>
+
+    <!-- NodeThreeChoice -->
+    <string name="title_activity_node_three_choice">NodeThreeChoice</string>
+    <string name="nodeThreeFiveQuestion">Vil du springe den i luften?</string>
+    <string name="nodeThreeFiveYes">Ja</string>
+    <string name="nodeThreeFiveNo">Nej</string>
+    <string name="title_activity_node_four">NodeFourActivity</string>
 
 </resources>

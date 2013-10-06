@@ -1,42 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Start-event -->
-	<string name="ussr_S">Velkommen til det store rumkabløb. Jeg har en opgave til jer, kammerater. Gå langs søen, så jeg har yderligere instrukser.</string>
-    <string name="usa_S">Velkommen til det store rumkabløb, skynd jer videre langs søen!</string>
+    <!-- Intro (Ren tekst. Ingen oplæser.) -->
+	<string name="ussr_S">Sådan lød talen fra USA’s præsident John F. Kennedy den 12. september 1962, en tale der markerede starten på det store rumkapløb mellem USA og USSR. Et rumkapløb I nu skal deltage i, og hjælpe jeres nation med at nå til månen som de første. 
 
-    <!-- 1-event -->
-    <string name="ussr_1">1 Skynd dig hen til næste post, voof!</string>
-    <string name="usa_1">1 Space Race!</string>
+    I er en del af USSR’s elite efterforskningsenhed, der har til opgave at finde og bringe vores topforsker professor Sergei Korolev. Han er blevet kidnappet af USA, da han er ekspert i rumfart, og er den vigtigste person i forhold til at slå det kapitalistiske USA!
+    </string>
+    <string name="usa_S">Sådan lød talen fra USA’s præsident John F. Kennedy den 12. september 1962, en tale der markerede starten på det store rumkapløb mellem USA og USSR. Et rumkapløb I nu skal deltage i, og hjælpe jeres nation med at nå til månen som de første. 
+
+    I er en del af USA’s elite efterforskningsenhed, der har til opgave at finde og bringe vores topforsker professor Wernher Von Braun. Han er blevet kidnappet af USSR, da han er ekspert i rumfart, og er den vigtigste person i forhold til at slå det kommunistiske USSR! 
+    </string>
+
     
-    <!-- 15-event -->
-    <string name="ussr_15">15 Det store rumkapløb!</string>
-    <string name="usa_15">15 Space Race!</string>
+    <!-- Map -> Node 1 (Ham og Laika taler) -->
+    <string name="ussr_intro_laika">Hej med jer! Jeg er Laika og er blevet bedt personligt af  formanden for USSR’s kommunistiske parti Nikita Khrushchev om at hjælpe dig med at finde og bringe vores topforsker Sergei Korolev i sikkerhed! Vores første opgave er, at komme om bag fjendens linjer inden de får sat afspærringer op, der gør det alt for besværligt! Vi må bevæge os hurtigt. 
+    </string>
+    <string name="usa_intro_ham">Hej med jer! Jeg er Ham og er blevet bedt personligt af USA’s præsident John F. Kennedy om at hjælpe dig med at finde og bringe vores topforsker Wernher Von Braun i sikkerhed! Vores første opgave er, at komme om bag fjendens linjer inden de får sat afspærringer op, der gør det alt for besværligt! Vi må bevæge os hurtigt. 
+    </string>
+
+    <!-- Beskrivelse af kortfunktionen (Ham og Laika taler) -->
+    <string name="shared_map_intro"> Om lidt vil I for første gang se jeres kort. Kortet vil vise jeres egen position og et område som, indeholder næste stop på jeres mission. Det viste område er ikke en præcis lokation på næste stop, men et hint til, hvor I skal lede. Når I kommer til den rigtige position indenfor det markede område, vil næste skridt i jeres mission blive aktiveret. Undervejs vil kortet blive opdateret, så der hele tiden er et hint til et område, hvor I kan lede efter næste lokation. 
+    </string>
+    <!-- Node 1 -> 1,5 (Ham og Laika taler) -->
+    <string name="ussr_15_detour">Det er ikke lykkedes jer at komme hurtigt nok frem, så fjenden har nået at sætte afspærringer op. Det betyder desværre, at I skal tage en omvej for at nå om bag fjendens linjer uden at blive opdaget. Omvejen er blevet lagt ind på jeres kort.
+    </string>
+    <string name="usa_15_detour">Det er ikke lykkedes jer at komme hurtigt nok frem, så fjenden har nået at sætte afspærringer op. Det betyder desværre, at I skal tage en omvej for at nå om bag fjendens linjer uden at blive opdaget. Omvejen er blevet lagt ind på jeres kort.
+    </string>
+
+    <!-- Node 1,5 (Ham og Laika taler) -->
+    <string name="ussr_15">Det lykkedes jer at komme af bagveje om bag fjendens linjer. Det betyder, at I er klar til at gå på opdagelse efter radiotransmitøren JT. JT er også bag fjendens linjer, og har indsamlet nogle spor. Hans lokation er nogenlunde placeret på kortet.
+    </string>
+    <string name="usa_15">Det lykkedes jer at komme af bagveje om bag fjendens linjer. Det betyder, at I er klar til at gå på opdagelse efter radiotransmitøren JT. JT er også bag fjendens linjer, og har indsamlet nogle spor. Hans lokation er nogenlunde placeret på kortet.
+    </string>
     
-    <!-- 2-event -->
-    <string name="ussr_2">2 Det store rumkapløb!</string>
-    <string name="usa_2">2 Space Race!</string>
+    <!--Node 1 -> 2 (Ham og Laika) -->
+    <string name="ussr_2_direct">Det lykkedes jer at komme bag fjendens linjer, inden de fik stillet afspærringer op. Det betyder, at I er klar til at gå på opdagelse efter radiotransmitøren JT. JT er også bag fjendens linjer, og har indsamlet nogle spor. Hans lokation er nogenlunde placeret på kortet. 
+    </string>
+    <string name="usa_2_direct">Det lykkedes jer at komme bag fjendens linjer, inden de fik stillet afspærringer op. Det betyder, at I er klar til at gå på opdagelse efter radiotransmitøren JT. JT er også bag fjendens linjer, og har indsamlet nogle spor. Hans lokation er nogenlunde placeret på kortet.
+    </string>
     
-    <!-- 3-event -->
-    <string name="ussr_3">3 Det store rumkapløb!</string>
-    <string name="usa_3">3 Space Race!</string>
+    <!-- Node 2_1 (Ham og Laika taler) -->
+    <string name="ussr_2_1">Det var underligt, JT burde være her. Vi venter lige, lidt og ser om han dukker op. Mens vi venter kan jeg fortælle jer lidt mere, om hvad der er sket! USA har som i ved kidnappet vores forsker Sergei Korolev. Som modsvar har vi kidnappet én af deres top forskere Wernher Von Braun.Vi frygter dog også, at de har sendt et hold ud for at få ham tilbage! Så det er vigtigt at I får Sergei Korolev tilbage så hurtigt så muligt.
+    </string>
+    <string name="usa_2_1">Det var underligt, JT burde være her. Vi venter lige lidt, og ser om han dukker op. Mens vi venter kan jeg fortælle jer lidt mere, om hvad der er sket! USSR har som I ved kidnappet vores forsker Wernher Von Braun. Som modsvar har vi kidnappet én af deres top forskere Sergei Korolev.Vi frygter dog også, at de har sendt et hold ud for at få ham tilbage! Så det er vigtigt at I får Wernher Von Braun tilbage så hurtigt så muligt.
+    </string>
     
-    <!-- 35-event -->
-    <string name="ussr_35">Det store rumkapløb!</string>
-    <string name="usa_35">Space Race!</string>
+    <!-- Node 2_2 (Ham og Laika taler) -->
+    <string name="ussr_2_2">Biiip Biiip! Jeg har netop fået en opdateret lokation på JT, han fandt et spor et andet sted. Vi må straks hen til ham!
+    </string>
+    <string name="usa_2_2">Biiip Biiip! Jeg har netop fået en opdateret lokation på JT, han fandt et spor et andet sted. Vi må straks hen til ham!
+    </string>
     
-    <!-- 4-event -->
-    <string name="ussr_4">Det store rumkapløb!</string>
-    <string name="usa_4">Space Race!</string>
+    <!-- Node 3_1 (JT taler) -->
+    <string name="ussr_3_1">Hej med jer. Godt at se nogle venlige ansigter!
+    Jeg er JT, en radiotransmitør der er sendt bag fjendens linjer for at finde spor, der kan hjælpe med at finde professor Sergei Korolev. 
+    Jeg har fundet en lang række spor, disse skal jeg have oversat til engelsk og indsendt til vores tekniske afdeling til analyse. Jo bedre I er til at oversætte sporene til engelsk, jo mere præcist kan jeg finde ud af hvor I skal hen for at finde professoren.
+    </string>
+    <string name="usa_3_1">Hej med jer. Godt at se nogle venlige ansigter!
+    Jeg er JT, en radiotransmitør der er sendt bag fjendens linjer for at finde spor, der kan hjælpe med at finde professor Wernher Von Braun. 
+    Jeg har fundet en lang række spor, disse skal jeg have oversat til engelsk og indsendt til vores tekniske afdeling til analyse. Jo bedre I er til at oversætte sporene til engelsk, jo mere præcist kan jeg finde ud af hvor I skal hen for at finde professoren.
+    </string>
     
-    <!-- 5-event -->
-    <string name="ussr_5">Det store rumkapløb!</string>
-    <string name="usa_5">Space Race!</string>
+    <!-- Node 3_2 (JT taler) -->
+    <string name="ussr_3_2">I har nu mulighed for at stikke en kæp i hjulet på jeres modstander. Jeg fandt nemlig en radiobase, der står for at styre modstanderholdet kort. Hvis I i stedet for at gå direkte videre til næste lokation vælger at gå videre til denne, kan I springe den i luften, og midlertidigt sætte deres kort ud af funktion! 
+    </string>
+    <string name="usa_3_2">I har nu mulighed for at stikke en kæp i hjulet på jeres modstander. Jeg fandt nemlig en radiobase, der står for at styre modstanderholdet kort. Hvis I i stedet for at gå direkte videre til næste lokation vælger at gå videre til denne, kan I springe den i luften, og midlertidigt sætte deres kort ud af funktion!  
+    </string>
     
-    <!-- Ewin-event -->
-    <string name="ussr_Ewin">Det store rumkapløb!</string>
-    <string name="usa_Ewin">Space Race!</string>
+    <!-- Node 3,5 (Ham og Laika taler) -->
+    <string name="ussr_35">Godt arbejde! I er nået frem til modstanderens radiobase. Nu mangler i bare at sprænge den i luften. 
+    </string>
+    <string name="usa_35">Godt arbejde! I er nået frem til modstanderens radiobase. Nu mangler i bare at sprænge den i luften. 
+    </string>
     
-    <!-- Elose-event -->
-    <string name="ussr_Elose">Det store rumkapløb!</string>
-    <string name="usa_Elose">Space Race!</string>
+    <!-- Node 4 (Ray Xiong taler) -->
+    <string name="ussr_4">Hej med jer! Jeg er Ray Xiong, og jeg forsker i radioaktivitet. Jeg er her for at hjælpe jer med at finde professor Sergei Korolev. Han er blevet udstyret med en radioaktiv sender, hvis han skulle blive kidnappet, ligesom det er sket. Jeg har fået de første svage læsninger af radioaktiviteten på denne lokation, og jeg har brug for jeres hjælp til at finde frem til radioaktivitetens kilde. Det kan I gøre vha. jeres telefon, den har nemlig en indbygget geigertæller! Jo stærkere signalet er, jo tættere er I på professoren.
+    </string>
+    <string name="usa_4">Hej med jer! Jeg er Ray Xiong, og jeg forsker i radioaktivitet. Jeg er her for at hjælpe jer med at finde professor Wernher Von Braun. Han er blevet udstyret med en radioaktiv sender, hvis han skulle blive kidnappet, ligesom det er sket. Jeg har fået de første svage læsninger af radioaktiviteten på denne lokation, og jeg har brug for jeres hjælp til at finde frem til radioaktivitetens kilde. Det kan I gøre vha. jeres telefon, den har nemlig en indbygget geigertæller! Jo stærkere signalet er, jo tættere er I på professoren.
+    </string>
+
+    <!-- Node 5_1 (Braun og Korolev taler) -->
+    <string name="ussr_5_1">
+    Kære venner! Godt at se jer, det lykkedes mig at undslippe mine fangevogtere, og gemme mig her! 
+    </string>
+    <string name="usa_5_1">Kære venner! Godt at se jer, det lykkedes mig at undslippe mine fangevogtere, og gemme mig her!
+    </string>
+
+    <!-- Node 5_2 (Ham og Laika taler) -->
+    <string name="ussr_5_2">
+    I har fundet professoren! Vi må straks have ham tilbage til USSR. Jeg har sørget for, at der venter en helikopter, den må I straks hen til! 
+    </string>
+    <string name="usa_5_2">
+    I har fundet professoren! Vi må straks have ham tilbage til USA. Jeg har sørget for, at der venter en helikopter, den må I straks hen til! 
+    </string>
+
+    <!-- End Win (Ham og Laika taler. Afspil musik imens) -->
+    <string name="ussr_endwin">
+    Tillykke! Det lykkedes jer at få jeres forsker tilbage som de første! Det ledte til at russiske Yuri Gagarin, som den første nogensinde gik på månen i 1969. Længe leve moder Rusland!
+    </string>
+    <string name="usa_endwin">
+    Tillykke! Det lykkedes jer at få jeres forsker tilbage som de første! Det ledte til at amerikanske Neil Armstrong, som den første nogensinde gik på månen i 1969. Længe leve USA!
+    </string>
+
+    <!-- End Lose (Ham og Laika taler. Afspil musik imens) -->
+    <string name="ussr_endlose">
+    Desværre! Det lykkedes det andet hold at få deres forsker tilbage først! Det ledte til at  amerikanske Neil Armstrong, som den første nogensinde gik på månen i 1969. Bedre held næste gang!
+    </string>
+    <string name="usa_endlose">
+    Desværre! Det lykkedes det andet hold at få deres forsker tilbage først! Det ledte til at  russiske Yuri Gagarin, som den første nogensinde gik på månen i 1969. Bedre held næste gang!
+    </string>
+
 </resources>

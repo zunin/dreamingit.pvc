@@ -55,35 +55,48 @@
         <!-- Nodes -->
         <activity android:name="dk.dreamingit.pvc.EmptyNode" >
         </activity>
-        <activity android:name="dk.dreamingit.pvc.IntroNode"
-           android:label="Intro" >
+        <activity
+            android:name="dk.dreamingit.pvc.IntroNode"
+            android:label="Intro" >
         </activity>
-        <activity android:name="dk.dreamingit.pvc.NodeOne" 
-            android:label="Node1">
+        <activity
+            android:name="dk.dreamingit.pvc.NodeOne"
+            android:label="Node1" >
         </activity>
-        <activity android:name="dk.dreamingit.pvc.NodeOneFive" 
-            android:label="Node15">
+        <activity
+            android:name="dk.dreamingit.pvc.NodeOneFive"
+            android:label="Node15" >
         </activity>
-        <activity android:name="dk.dreamingit.pvc.NodeTwo" 
-            android:label="Node2">
+        <activity
+            android:name="dk.dreamingit.pvc.NodeTwo"
+            android:label="Node2" >
         </activity>
-        <activity android:name="dk.dreamingit.pvc.NodeThree" 
-            android:label="Node3">
+        <activity
+            android:name="dk.dreamingit.pvc.NodeThree"
+            android:label="Node3" >
         </activity>
-        <activity android:name="dk.dreamingit.pvc.NodeThreeFive" 
-            android:label="Node35">
+        <activity
+            android:name="dk.dreamingit.pvc.NodeThreeFive"
+            android:label="Node35" >
         </activity>
-        <activity android:name="dk.dreamingit.pvc.NodeFour" 
-            android:label="Node4">
+        <activity
+            android:name="dk.dreamingit.pvc.NodeFour"
+            android:label="Node4" >
         </activity>
-        <activity android:name="dk.dreamingit.pvc.NodeFive" 
-            android:label="Node5">
+        <activity
+            android:name="dk.dreamingit.pvc.NodeFive"
+            android:label="Node5" >
         </activity>
-        <activity android:name="dk.dreamingit.pvc.NodeEnd" 
-            android:label="NodeEnd">
+        <activity
+            android:name="dk.dreamingit.pvc.NodeEnd"
+            android:label="NodeEnd" >
+        </activity>
+        <activity
+            android:name="dk.dreamingit.pvc.NodeThreeChoice"
+            android:label="NodeThreeChoice" >
         </activity>
         <!-- End Nodes -->
-                <activity
+        <activity
             android:name="dk.dreamingit.pvc.BasicMapActivity"
             android:label="@string/basic_map" />
         <activity
@@ -152,6 +165,18 @@
         <activity
             android:name="dk.dreamingit.pvc.VisibleRegionDemoActivity"
             android:label="@string/visible_region_demo" />
+        <activity
+            android:name="dk.dreamingit.pvc.NodeThreeActivity"
+            android:label="@string/title_activity_node_three"
+            android:parentActivityName="dk.dreamingit.pvc.NodeThree" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dk.dreamingit.pvc.NodeThree" />
+        </activity>
+        <activity
+            android:name="dk.dreamingit.pvc.NodeFourActivity"
+            android:label="@string/title_activity_node_four" >
+        </activity>
     </application>
 
 </manifest>

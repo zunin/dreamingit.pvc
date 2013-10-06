@@ -10,4 +10,18 @@ public class NodeEnd extends EmptyNode {
 
 	}
 
+	@Override
+	protected void inflateNarrative() {
+		setTitle("");
+		
+		if (team.equals("USA"))
+		{
+			setStory(R.string.usa_endwin);
+		} else
+		{
+			setStory(R.string.ussr_endlose);
+		}
+		
+	}
+
 }

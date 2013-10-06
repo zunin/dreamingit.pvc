@@ -11,10 +11,11 @@ import android.view.View;
 public class SelectTeamActivity extends Activity {
 	public final static String EXTRA_MESSAGE = "dk.dreamingit.pvc.TEAM";
 	public final static String CURRENT_NODE = "dk.dreamingit.pvc.NODE";
-	public static ArrayList<Integer> story;
+	public final static String VOICE_SCORE = "dk.dreamingit.pvc.VOICE_SCORE";
+	// public static ArrayList<Integer> story;
 	
-	private final static ArrayList<Integer> USAStory = new ArrayList<Integer>();
-	private final static ArrayList<Integer> USSRStory = new ArrayList<Integer>();
+	// private final static ArrayList<Integer> USAStory = new ArrayList<Integer>();
+	// private final static ArrayList<Integer> USSRStory = new ArrayList<Integer>();
 	
 	
 	@Override
@@ -22,6 +23,7 @@ public class SelectTeamActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_team);
 		
+		/*
 		//USSR
 		USSRStory.add(R.string.ussr_S);
 		USSRStory.add(R.string.ussr_1);
@@ -44,7 +46,7 @@ public class SelectTeamActivity extends Activity {
 		USAStory.add(R.string.usa_4);
 		USAStory.add(R.string.usa_5);
 		USAStory.add(R.string.usa_Ewin);
-		USAStory.add(R.string.usa_Elose);
+		USAStory.add(R.string.usa_Elose); */
 	}
 
 	@Override
@@ -56,22 +58,18 @@ public class SelectTeamActivity extends Activity {
 
 	public void startUSSR(View v)
 	{
-		
-		
  		Intent intent = new Intent(this, IntroNode.class);
 		intent.putExtra(EXTRA_MESSAGE, "USSR");
-		story = USSRStory;
+		// story = USSRStory;
 		
 		startActivity(intent);
 	}
 	
 	public void startUSA(View v)
 	{
-
-		
 		Intent intent = new Intent(this, IntroNode.class);
 		intent.putExtra(EXTRA_MESSAGE, "USA");
-		story = USAStory;
+		// story = USAStory;
 		
 		startActivity(intent);
 	}
