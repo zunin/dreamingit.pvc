@@ -7,7 +7,7 @@
     <!-- Copied from Google Maps Library/AndroidManifest.xml. -->
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -39,30 +39,28 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyC__FSZufq2yI43zL_B_MryuEjcKiwC38w" />
 
-        <activity
-            android:name="dk.dreamingit.pvc.StartGameActivity"
+        <!-- Nodes -->
+        <activity android:name="dk.dreamingit.pvc.StartGameActivity"
             android:label="@string/title_activity_start_game" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
-
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="dk.dreamingit.pvc.MainActivity" >
-        </activity>
-        <activity android:name="dk.dreamingit.pvc.SelectTeamActivity" >
-        </activity>
-        <!-- Nodes -->
+        <activity android:name="dk.dreamingit.pvc.SelectTeamActivity" />
+        <activity android:name="dk.dreamingit.pvc.SpeechNode" />
+        <activity android:name="dk.dreamingit.pvc.IntroNode" />
+        <activity android:name="dk.dreamingit.pvc.NodeMapIntro" />
+        <activity android:name="dk.dreamingit.pvc.MainActivity" />
+        
+        
         <activity android:name="dk.dreamingit.pvc.EmptyNode" >
         </activity>
-        <activity
-            android:name="dk.dreamingit.pvc.IntroNode"
-            android:label="Intro" >
-        </activity>
-        <activity
-            android:name="dk.dreamingit.pvc.NodeOne"
+        
+        <activity android:name="dk.dreamingit.pvc.NodeOne"
             android:label="Node1" >
         </activity>
+        
         <activity
             android:name="dk.dreamingit.pvc.NodeOneFive"
             android:label="Node15" >

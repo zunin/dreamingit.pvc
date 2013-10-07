@@ -49,6 +49,9 @@
     <string name="nodeThreeFiveQuestion">Vil du springe den i luften?</string>
     <string name="nodeThreeFiveYes">Ja</string>
     <string name="nodeThreeFiveNo">Nej</string>
+    
+    <!-- NodeFourActivity -->
     <string name="title_activity_node_four">NodeFourActivity</string>
+    <string name="node_four_distance">Afstand til radioaktiv kilde: </string>
 
 </resources>

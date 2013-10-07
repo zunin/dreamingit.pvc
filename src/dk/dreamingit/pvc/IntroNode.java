@@ -1,12 +1,13 @@
 package dk.dreamingit.pvc;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.TextView;
 
+
 public class IntroNode extends EmptyNode
 {
-	
 	
 	@Override
 	public void goNext(View V) {
@@ -19,6 +20,7 @@ public class IntroNode extends EmptyNode
 
 	@Override
 	protected void inflateNarrative() {
+		
 		setContentView(R.layout.intro_view);
 		TextView storyView = (TextView) findViewById(R.id.intro_text);
 		

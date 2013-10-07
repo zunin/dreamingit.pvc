@@ -19,6 +19,7 @@ package dk.dreamingit.pvc;
 import java.util.ArrayList;
 import java.util.Random;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -39,6 +40,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -62,7 +64,8 @@ public final class MainActivity extends FragmentActivity
     private ArrayList<String> coordinateList;
     
     private String team;
-    private int node;
+    private String node;
+    private boolean ThreeFiveChosen = false;
     
     // These settings are the same as the settings for the map. They will in fact give you updates
     // at the maximal rates currently possible.
@@ -78,7 +81,7 @@ public final class MainActivity extends FragmentActivity
 		setContentView(R.layout.main);
 		Intent intent = getIntent();
 		String message = intent.getStringExtra(SelectTeamActivity.EXTRA_MESSAGE);
-		node = intent.getIntExtra(SelectTeamActivity.CURRENT_NODE, node);
+		node = intent.getStringExtra(SelectTeamActivity.CURRENT_NODE);
 		team = message;
 		mMessageView = (TextView) findViewById(R.id.message_text);
 		mMessageView.setText(message);
@@ -106,6 +109,11 @@ public final class MainActivity extends FragmentActivity
 		
 		//addHintOverlay(56.170937, 10.190135, 1); //SCN - start
 		//addHintOverlay(56.169727, 10.189641, 1); //SCN - slut
+		
+		//onResume stuff
+		setUpMapIfNeeded();
+        setUpLocationClientIfNeeded();
+        mLocationClient.connect();
 	}
 	
     @Override
@@ -114,6 +122,7 @@ public final class MainActivity extends FragmentActivity
         setUpMapIfNeeded();
         setUpLocationClientIfNeeded();
         mLocationClient.connect();
+        setNextStoryMarker();
     }
 
     @Override
@@ -145,6 +154,7 @@ public final class MainActivity extends FragmentActivity
     public void showMyLocation(View view) {
         if (mLocationClient != null && mLocationClient.isConnected()) {
             //String msg = "Location = " + mLocationClient.getLastLocation();
+        	/*
         	Location location = mLocationClient.getLastLocation();
         	String msg = "";
         	for (String coordinate : coordinateList)
@@ -168,9 +178,12 @@ public final class MainActivity extends FragmentActivity
     			
         	
     		}
-        	Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        	Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show(); */
+        	Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
         }
     }
+    
+    
     
     private void setUpLocationClientIfNeeded() {
         if (mLocationClient == null) {
@@ -252,8 +265,12 @@ public final class MainActivity extends FragmentActivity
 		
 	}
 	
-	private void addHintOverlay(double latitude, double longitude, int radius)
+	private void addHintOverlay(String coordinate, int radius)
 	{
+		//Translate string into coordinates
+		double latitude = Double.valueOf(coordinate.substring(0, 8));
+		double longitude = Double.valueOf(coordinate.substring(10, 18));
+		
 		//Random offset
 		Random r = new Random();
 		double rLati = offsetLatitude(r.nextInt(radius));
@@ -269,12 +286,23 @@ public final class MainActivity extends FragmentActivity
 		}
 		
 		//Draw circle
+		LatLng point = new LatLng(rLati+latitude, rLong+longitude);
+		// LatLng nygaard = new LatLng(56.170937, 10.190135);
+		CircleOptions circleOptions = new CircleOptions()
+		  .center(point)   //set center
+		  .radius(radius)   //set radius in meters
+		  .fillColor(Color.argb(150, 0, 0, 0))
+		  .strokeColor(Color.WHITE)
+		  .strokeWidth(5);
+		  
+		  Circle myCircle = mMap.addCircle(circleOptions);
+		 /*
 		mMap.addCircle(new CircleOptions()
 		.center(new LatLng(latitude+rLati, longitude+rLong))
 		.radius(radius)
 		.strokeColor(Color.BLACK)
 		.strokeWidth((float) 5)
-		.fillColor(Color.argb(150, 0, 0, 0)));
+		.fillColor(Color.argb(150, 0, 0, 0)));*/
 	}
 	
 	private double offsetLatitude(int meters)
@@ -331,4 +359,89 @@ public final class MainActivity extends FragmentActivity
 		return MainActivity.class;			//Own class
 	}
 
+	private void setNextStoryMarker()
+	{
+		if (mMap == null)
+		{return;}
+		
+		Intent intent = getIntent();
+		String oldNode = intent.getStringExtra(SelectTeamActivity.CURRENT_NODE);
+		int radius = 10;
+		
+		if (oldNode.equals("NodeMapIntro")) //Go to NodeOne
+		{
+			if (team.equals("USA"))
+			{
+				addHintOverlay(coordinateList.get(1), radius); //USA1
+
+				
+			} else //team = USSR
+			{
+				addHintOverlay(coordinateList.get(2), radius); //USSR1
+			}
+			
+		} else if (oldNode.equals("NodeOne")) //Go to NodeTwo
+		{
+			addHintOverlay(coordinateList.get(5), radius); //Shared2
+		} else if (oldNode.equals("NodeTwo")) //Go to NodeThree
+		{
+			if (team.equals("USA"))
+			{
+				addHintOverlay(coordinateList.get(6), radius); //USA3
+
+				
+			} else //team = USSR
+			{
+				addHintOverlay(coordinateList.get(7), radius); //USSR3
+			}
+		} else if (oldNode.equals("NodeThreeActivity"))  //Go to either 3.5 or 4
+		{
+			if (team.equals("USA"))
+			{
+				if (ThreeFiveChosen)
+				{
+					addHintOverlay(coordinateList.get(8), radius); //USA35
+				} else
+				{
+					addHintOverlay(coordinateList.get(10), radius); //USA4
+				}
+			} else //team = USSR
+			{
+				if (ThreeFiveChosen)
+				{
+					addHintOverlay(coordinateList.get(9), radius); //USSR35
+				} else
+				{
+					addHintOverlay(coordinateList.get(11), radius); //USSR4
+				}
+			}
+		} else if (oldNode.equals("NodeThreeFive")) //Go to 4 
+		{
+			if (team.equals("USA"))
+			{
+				addHintOverlay(coordinateList.get(10), radius); //USA4
+
+				
+			} else //team = USSR
+			{
+				addHintOverlay(coordinateList.get(11), radius); //USSR4
+			}	
+		} else if (oldNode.equals("NodeFour")) 
+		{
+			addHintOverlay(coordinateList.get(12), radius); //Shared5
+		} else if (oldNode.equals("NodeFive")) //Go to End
+		{
+			if (team.equals("USA"))
+			{
+				addHintOverlay(coordinateList.get(13), radius); //USAEND
+
+				
+			} else //team = USSR
+			{
+				addHintOverlay(coordinateList.get(14), radius); //USSREND
+			}	
+		} 
+		
+	}
+	
 }

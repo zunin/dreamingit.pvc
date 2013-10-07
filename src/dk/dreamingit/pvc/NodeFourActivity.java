@@ -46,7 +46,6 @@ public class NodeFourActivity extends FragmentActivity
 		player.onStart(delay); //(secDelayPerTic)
 		
 		text = (TextView) findViewById(R.id.delay);
-		text.setText("Y U NO WERK?");
 		
 		
 		setupLocations(team);
@@ -66,7 +65,7 @@ public class NodeFourActivity extends FragmentActivity
 		/*double latitude = Double.valueOf(coordinate.substring(0, 8));
 		double longitude = Double.valueOf(coordinate.substring(10, 18));*/
 		
-		coordinate = "56.170937, 10.190135"; //Stor Center Nord Hjørne
+		//coordinate = "56.170937, 10.190135"; //Stor Center Nord Hjørne
 		//coordinate = "56.171794, 10.189998"; //Nygaard
 		
 		double latitude = Double.valueOf(coordinate.substring(0, 8));
@@ -86,7 +85,7 @@ public class NodeFourActivity extends FragmentActivity
 			coordinate = getResources().getString(R.string.coord_4endUSSR);
 		}
 		
-		coordinate = "56.169727, 10.189641"; //Stor Center Nord Slut
+		//coordinate = "56.169727, 10.189641"; //Stor Center Nord Slut
 		
 		latitude = Double.valueOf(coordinate.substring(0, 8));
 		longitude = Double.valueOf(coordinate.substring(10, 18));
@@ -147,8 +146,8 @@ public class NodeFourActivity extends FragmentActivity
 
 	@Override
 	public void onLocationChanged(Location location) {
-		//Toast.makeText(getApplicationContext(), "Distance:" + location.distanceTo(taskLocation), Toast.LENGTH_SHORT).show();
-		text.setText("Delay:" + delay + ", Distance:" + location.distanceTo(taskLocation));
+		String distanceMessage = getResources().getString(R.string.node_four_distance);
+		text.setText(distanceMessage + location.distanceTo(taskLocation));
 		updateDistance(location);
 	}
 	
@@ -161,8 +160,6 @@ public class NodeFourActivity extends FragmentActivity
 			if (delay != 1)
 			{
 				delay = 1;
-				//text.setText(delay);
-				Toast.makeText(getApplicationContext(), "1Distance:" + location.distanceTo(taskLocation), Toast.LENGTH_SHORT).show();
 				restart();
 			}
 		} else if (distance < (maxDistance/5) * 2) //20-40%
@@ -170,8 +167,6 @@ public class NodeFourActivity extends FragmentActivity
 			if (delay != 2)
 			{
 				delay = 2;
-				//text.setText(delay);
-				Toast.makeText(getApplicationContext(), "2Distance:" + location.distanceTo(taskLocation), Toast.LENGTH_SHORT).show();
 				restart();
 			}
 		} else if (distance < (maxDistance/5) * 3) //40-60%
@@ -179,8 +174,6 @@ public class NodeFourActivity extends FragmentActivity
 			if (delay != 3)
 			{
 				delay = 3;
-				//text.setText(delay);
-				Toast.makeText(getApplicationContext(), "3Distance:" + location.distanceTo(taskLocation), Toast.LENGTH_SHORT).show();
 				restart();
 			}
 		} else if (distance < (maxDistance/5) * 4) //60-80%
@@ -188,8 +181,6 @@ public class NodeFourActivity extends FragmentActivity
 			if (delay != 4)
 			{
 				delay = 4;
-				//text.setText(delay);
-				Toast.makeText(getApplicationContext(), "4Distance:" + location.distanceTo(taskLocation), Toast.LENGTH_SHORT).show();
 				restart();
 			}
 		} else if (distance < (maxDistance/5) * 5) //80-100%
@@ -197,8 +188,6 @@ public class NodeFourActivity extends FragmentActivity
 			if (delay != 5)
 			{
 				delay = 5;
-				//text.setText(delay);
-				Toast.makeText(getApplicationContext(), "Distance:" + location.distanceTo(taskLocation), Toast.LENGTH_SHORT).show();
 				restart();
 			}
 		}

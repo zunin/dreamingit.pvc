@@ -28,12 +28,16 @@ public abstract class EmptyNode extends Activity {
 			storyView = (TextView) findViewById(R.id.node_story);
 			
 			team = intent.getStringExtra(SelectTeamActivity.EXTRA_MESSAGE);
-
 			
 			drawMascot(team);
 			
 			inflateNarrative();
 			
+		}
+		
+		public String nodeName()
+		{
+			return this.getClass().getSimpleName();
 		}
 		
 		protected abstract void inflateNarrative();
@@ -55,6 +59,7 @@ public abstract class EmptyNode extends Activity {
 		{
 			Intent nextIntent = new Intent(this, cls);
 			nextIntent.putExtra(SelectTeamActivity.EXTRA_MESSAGE, team);
+			nextIntent.putExtra(SelectTeamActivity.CURRENT_NODE, nodeName());
 			return nextIntent;
 		}
 		

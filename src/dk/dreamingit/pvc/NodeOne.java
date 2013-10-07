@@ -8,15 +8,13 @@ public class NodeOne extends EmptyNode
 
 	@Override
 	public void goNext(View V) {
-		Intent intent = createNextIntent(MainActivity.class);
+		Intent intent = createNextIntent(NodeMapIntro.class);
 		startActivity(intent);
 		
 	}
 
 	@Override
 	protected void inflateNarrative() {
-		setTitle("");
-		
 		if (team.equals("USA"))
 		{
 			setStory(R.string.usa_intro_ham);
