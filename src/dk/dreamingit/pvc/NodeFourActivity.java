@@ -8,14 +8,12 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationListener;
 
 import android.location.Location;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class NodeFourActivity extends FragmentActivity 
 										implements 
@@ -26,7 +24,8 @@ public class NodeFourActivity extends FragmentActivity
 	private GeigerPlayer player;
 	private int delay = 5;
 	private Location taskLocation, nodeFourLocation;
-	double maxDistance;
+	private double maxDistance;
+	private TextView text;
 	
 	private static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(5000)         // 5 seconds
@@ -46,6 +45,10 @@ public class NodeFourActivity extends FragmentActivity
 		player = new GeigerPlayer(this);
 		player.onStart(delay); //(secDelayPerTic)
 		
+		text = (TextView) findViewById(R.id.delay);
+		text.setText("Y U NO WERK?");
+		
+		
 		setupLocations(team);
 	}
 	
@@ -60,8 +63,15 @@ public class NodeFourActivity extends FragmentActivity
 		{
 			coordinate = getResources().getString(R.string.coord_4USSR);
 		}
+		/*double latitude = Double.valueOf(coordinate.substring(0, 8));
+		double longitude = Double.valueOf(coordinate.substring(10, 18));*/
+		
+		coordinate = "56.170937, 10.190135"; //Stor Center Nord Hjørne
+		//coordinate = "56.171794, 10.189998"; //Nygaard
+		
 		double latitude = Double.valueOf(coordinate.substring(0, 8));
 		double longitude = Double.valueOf(coordinate.substring(10, 18));
+		
 		nodeFourLocation = new Location("nodeFourLocation");
 		nodeFourLocation.setLatitude(latitude);
 		nodeFourLocation.setLongitude(longitude);
@@ -75,6 +85,9 @@ public class NodeFourActivity extends FragmentActivity
 		{
 			coordinate = getResources().getString(R.string.coord_4endUSSR);
 		}
+		
+		coordinate = "56.169727, 10.189641"; //Stor Center Nord Slut
+		
 		latitude = Double.valueOf(coordinate.substring(0, 8));
 		longitude = Double.valueOf(coordinate.substring(10, 18));
 		taskLocation = new Location("Task location");
@@ -89,7 +102,7 @@ public class NodeFourActivity extends FragmentActivity
         super.onResume();
         //setUpMapIfNeeded();
         setUpLocationClientIfNeeded();
-        //mLocationClient.connect();
+        mLocationClient.connect();
     }
 
 	@Override
@@ -134,6 +147,8 @@ public class NodeFourActivity extends FragmentActivity
 
 	@Override
 	public void onLocationChanged(Location location) {
+		//Toast.makeText(getApplicationContext(), "Distance:" + location.distanceTo(taskLocation), Toast.LENGTH_SHORT).show();
+		text.setText("Delay:" + delay + ", Distance:" + location.distanceTo(taskLocation));
 		updateDistance(location);
 	}
 	
@@ -141,22 +156,57 @@ public class NodeFourActivity extends FragmentActivity
 	{
 		double distance = location.distanceTo(taskLocation);
 		
-		if (distance < maxDistance/5)
+		if (distance < maxDistance/5) //0-20%
 		{
-			delay = 5;
-		} else if (distance < (maxDistance/5) * 2)
+			if (delay != 1)
+			{
+				delay = 1;
+				//text.setText(delay);
+				Toast.makeText(getApplicationContext(), "1Distance:" + location.distanceTo(taskLocation), Toast.LENGTH_SHORT).show();
+				restart();
+			}
+		} else if (distance < (maxDistance/5) * 2) //20-40%
 		{
-			delay = 4;
-		} else if (distance < (maxDistance/5) * 3)
+			if (delay != 2)
+			{
+				delay = 2;
+				//text.setText(delay);
+				Toast.makeText(getApplicationContext(), "2Distance:" + location.distanceTo(taskLocation), Toast.LENGTH_SHORT).show();
+				restart();
+			}
+		} else if (distance < (maxDistance/5) * 3) //40-60%
 		{
-			delay = 3;
-		} else if (distance < (maxDistance/5) * 4)
+			if (delay != 3)
+			{
+				delay = 3;
+				//text.setText(delay);
+				Toast.makeText(getApplicationContext(), "3Distance:" + location.distanceTo(taskLocation), Toast.LENGTH_SHORT).show();
+				restart();
+			}
+		} else if (distance < (maxDistance/5) * 4) //60-80%
 		{
-			delay = 2;
-		} else if (distance < (maxDistance/5) * 5)
+			if (delay != 4)
+			{
+				delay = 4;
+				//text.setText(delay);
+				Toast.makeText(getApplicationContext(), "4Distance:" + location.distanceTo(taskLocation), Toast.LENGTH_SHORT).show();
+				restart();
+			}
+		} else if (distance < (maxDistance/5) * 5) //80-100%
 		{
-			delay = 1;
+			if (delay != 5)
+			{
+				delay = 5;
+				//text.setText(delay);
+				Toast.makeText(getApplicationContext(), "Distance:" + location.distanceTo(taskLocation), Toast.LENGTH_SHORT).show();
+				restart();
+			}
 		}
 	}
-
+	
+	private void restart()
+	{
+		player.onStop();
+		player.onStart(delay);
+	}
 }

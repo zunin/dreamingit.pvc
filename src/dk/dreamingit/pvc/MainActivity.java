@@ -101,7 +101,11 @@ public final class MainActivity extends FragmentActivity
 		coordinateList.add(res.getString(R.string.coord_5));
 		coordinateList.add(res.getString(R.string.coord_EUSA));
 		coordinateList.add(res.getString(R.string.coord_EUSSR));
-		coordinateList.add("56.171794, 10.189998"); //Nygaard
+		//coordinateList.add("56.171794, 10.189998"); //Nygaard
+		coordinateList.add("56.170937, 10.190135"); //Hjørnet af StorCenter Nord
+		
+		//addHintOverlay(56.170937, 10.190135, 1); //SCN - start
+		//addHintOverlay(56.169727, 10.189641, 1); //SCN - slut
 	}
 	
     @Override
