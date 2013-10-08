@@ -20,11 +20,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
@@ -37,6 +39,7 @@ import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailed
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -67,7 +70,8 @@ public final class MainActivity extends FragmentActivity
     private String node;
     private boolean ThreeFiveChosen = true;
     private boolean NodeOneWon = true;
-    
+    protected PowerManager.WakeLock mWakeLock;
+    private static final LatLng UNIPARKEN = new LatLng(56.168070, 10.204603);
     // These settings are the same as the settings for the map. They will in fact give you updates
     // at the maximal rates currently possible.
     private static final LocationRequest REQUEST = LocationRequest.create()
@@ -83,6 +87,10 @@ public final class MainActivity extends FragmentActivity
 		Intent intent = getIntent();
 		team = intent.getStringExtra(SelectTeamActivity.EXTRA_MESSAGE);
 		node = intent.getStringExtra(SelectTeamActivity.CURRENT_NODE);
+		
+        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "My Tag");
+        this.mWakeLock.acquire();
 		
 		//get those coordinates, get them. real dirty
 		Resources res = getResources();
@@ -137,6 +145,8 @@ public final class MainActivity extends FragmentActivity
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
+            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UNIPARKEN, 17.0f));
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 mMap.setMyLocationEnabled(true);
@@ -155,6 +165,12 @@ public final class MainActivity extends FragmentActivity
         }
     }
 
+    @Override
+    public void onDestroy() {
+        this.mWakeLock.release();
+        super.onDestroy();
+    }
+    
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

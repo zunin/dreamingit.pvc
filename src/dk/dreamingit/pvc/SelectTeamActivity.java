@@ -1,7 +1,9 @@
 package dk.dreamingit.pvc;
 
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -11,12 +13,24 @@ public class SelectTeamActivity extends Activity {
 	public final static String EXTRA_MESSAGE = "dk.dreamingit.pvc.TEAM";
 	public final static String CURRENT_NODE = "dk.dreamingit.pvc.NODE";
 	public final static String VOICE_SCORE = "dk.dreamingit.pvc.VOICE_SCORE";
+	protected PowerManager.WakeLock mWakeLock;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_team);
+		
+		/* This code together with the one in onDestroy() 
+         * will make the screen be always on until this Activity gets destroyed. */
+        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "My Tag");
 	}
+	
+	@Override
+    public void onDestroy() {
+        this.mWakeLock.release();
+        super.onDestroy();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -27,7 +41,7 @@ public class SelectTeamActivity extends Activity {
 
 	public void startUSSR(View v)
 	{
- 		Intent intent = new Intent(this, NodeFour.class);
+ 		Intent intent = new Intent(this, SpeechNode.class);
 		intent.putExtra(EXTRA_MESSAGE, "USSR");
 		
 		startActivity(intent);
@@ -35,7 +49,7 @@ public class SelectTeamActivity extends Activity {
 	
 	public void startUSA(View v)
 	{
-		Intent intent = new Intent(this, NodeThreeChoice.class);
+		Intent intent = new Intent(this, SpeechNode.class);
 		intent.putExtra(EXTRA_MESSAGE, "USA");
 		
 		startActivity(intent);

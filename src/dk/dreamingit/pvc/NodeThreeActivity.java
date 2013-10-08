@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -28,6 +30,7 @@ public class NodeThreeActivity extends Activity {
 	private int index;
 	private int score;
 	private TextView clueView;
+	protected PowerManager.WakeLock mWakeLock;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,12 @@ public class NodeThreeActivity extends Activity {
 		setContentView(R.layout.activity_node_three);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+        /* This code together with the one in onDestroy() 
+         * will make the screen be always on until this Activity gets destroyed. */
+        final PowerManager pwnMan = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        this.mWakeLock = pwnMan.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "My Tag");
+        this.mWakeLock.acquire();
 		
 		//VOICE STUFF -disable button if no listener is present
 		Button speakButton = (Button) findViewById(R.id.listenButton);
@@ -55,6 +64,12 @@ public class NodeThreeActivity extends Activity {
         clueView = (TextView) findViewById(R.id.voice_clue);
         clueView.setText(resKeys.get(index));
 	}
+	
+	@Override
+    public void onDestroy() {
+        this.mWakeLock.release();
+        super.onDestroy();
+    }
 	
     public void listenButtonClicked(View v)
     {

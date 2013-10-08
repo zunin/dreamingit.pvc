@@ -9,6 +9,8 @@ import com.google.android.gms.location.LocationListener;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -28,6 +30,7 @@ public class NodeFourActivity extends FragmentActivity
 	private TextView text;
 	private boolean isPlaying = false, found = false;
 	private String team;
+	protected PowerManager.WakeLock mWakeLock;
 	
 	private static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(5000)         // 5 seconds
@@ -38,6 +41,12 @@ public class NodeFourActivity extends FragmentActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_node_four);
+		
+		/* This code together with the one in onDestroy() 
+         * will make the screen be always on until this Activity gets destroyed. */
+        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "My Tag");
+        this.mWakeLock.acquire();
 		
 		//Get data
 		Intent intent = getIntent();
@@ -52,6 +61,12 @@ public class NodeFourActivity extends FragmentActivity
 		
 		setupLocations(team);
 	}
+	
+	@Override
+    public void onDestroy() {
+        this.mWakeLock.release();
+        super.onDestroy();
+    }
 	
 	private void setupLocations(String team)
 	{

@@ -1,13 +1,13 @@
 package dk.dreamingit.pvc;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 
@@ -15,12 +15,18 @@ public abstract class EmptyNode extends Activity {
 		private TextView storyView;
 		private Resources res;
 		protected String team;
-
+		protected PowerManager.WakeLock mWakeLock;
 	
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.empty_node);
+			
+	        /* This code together with the one in onDestroy() 
+	         * will make the screen be always on until this Activity gets destroyed. */
+	        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+	        this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "My Tag");
+	        this.mWakeLock.acquire();
 			
 			res = getResources();
 			Intent intent = getIntent();
@@ -34,6 +40,12 @@ public abstract class EmptyNode extends Activity {
 			inflateNarrative();
 			
 		}
+		
+	    @Override
+	    public void onDestroy() {
+	        this.mWakeLock.release();
+	        super.onDestroy();
+	    }
 		
 		public String nodeName()
 		{

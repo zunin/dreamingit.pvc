@@ -1,7 +1,9 @@
 package dk.dreamingit.pvc;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -17,6 +19,10 @@ public class SpeechNode extends EmptyNode
 		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.geiger);
 		mediaPlayer.setOnCompletionListener(this);
 		mediaPlayer.start();
+		
+		Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		// Vibrate for 500 milliseconds
+		v.vibrate(500);
 		
 		//Skip intro
 		//onCompletion(mediaPlayer);

@@ -1,7 +1,9 @@
 package dk.dreamingit.pvc;
 
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -11,6 +13,7 @@ public class NodeThreeChoice extends Activity {
 	private int score = 10;
 	private String team;
 	private Intent nextIntent;
+	protected PowerManager.WakeLock mWakeLock;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,12 @@ public class NodeThreeChoice extends Activity {
 		//score = nextIntent.getIntExtra(SelectTeamActivity.VOICE_SCORE, 0);
 		team = nextIntent.getStringExtra(SelectTeamActivity.EXTRA_MESSAGE);
 		TextView story = (TextView) findViewById(R.id.three_choice_story);
+		
+		 /* This code together with the one in onDestroy() 
+         * will make the screen be always on until this Activity gets destroyed. */
+        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "My Tag");
+        this.mWakeLock.acquire();
 		
 		if (team.equals("USA"))
 		{
@@ -30,6 +39,12 @@ public class NodeThreeChoice extends Activity {
 		
 		super.onCreate(savedInstanceState);
 	}
+	
+	@Override
+    public void onDestroy() {
+        this.mWakeLock.release();
+        super.onDestroy();
+    }
 	
 	public void clickedYes(View v)
 	{
