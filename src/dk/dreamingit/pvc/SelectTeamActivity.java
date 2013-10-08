@@ -27,7 +27,7 @@ public class SelectTeamActivity extends Activity {
 
 	public void startUSSR(View v)
 	{
- 		Intent intent = new Intent(this, SpeechNode.class);
+ 		Intent intent = new Intent(this, NodeFive.class);
 		intent.putExtra(EXTRA_MESSAGE, "USSR");
 		
 		startActivity(intent);
@@ -35,7 +35,7 @@ public class SelectTeamActivity extends Activity {
 	
 	public void startUSA(View v)
 	{
-		Intent intent = new Intent(this, SpeechNode.class);
+		Intent intent = new Intent(this, NodeFive.class);
 		intent.putExtra(EXTRA_MESSAGE, "USA");
 		
 		startActivity(intent);

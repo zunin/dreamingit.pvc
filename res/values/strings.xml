@@ -50,6 +50,9 @@
     <string name="nodeThreeFiveYes">Ja</string>
     <string name="nodeThreeFiveNo">Nej</string>
     
+    <!-- NodeThreeFive -->
+    <string name="explode_text">Spring i luften!</string>
+    
     <!-- NodeFourActivity -->
     <string name="title_activity_node_four">NodeFourActivity</string>
     <string name="node_four_distance">Afstand til radioaktiv kilde: </string>

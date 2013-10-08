@@ -65,7 +65,8 @@ public final class MainActivity extends FragmentActivity
     
     private String team;
     private String node;
-    private boolean ThreeFiveChosen = false;
+    private boolean ThreeFiveChosen = true;
+    private boolean NodeOneWon = true;
     
     // These settings are the same as the settings for the map. They will in fact give you updates
     // at the maximal rates currently possible.
@@ -179,7 +180,7 @@ public final class MainActivity extends FragmentActivity
         	
     		}
         	Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show(); */
-        	Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+        	Toast.makeText(getApplicationContext(), "Acc: " + mLocationClient.getLastLocation().getAccuracy(), Toast.LENGTH_SHORT).show();
         }
     }
     
@@ -230,14 +231,18 @@ public final class MainActivity extends FragmentActivity
 			nodeLoc.setLatitude(latitude);
 			nodeLoc.setLongitude(longitude);
 			
-			//If you are within 2 meters of a post
-			if( location.distanceTo(nodeLoc) < location.getAccuracy()+2)
-			{
+			//If you are within 5 meters of a post
+			if( location.distanceTo(nodeLoc) < 5)
+			{	
+				if (getLocationNode(coordinate) == null)
+				{} else
+				{
+					Intent nextIntent = new Intent(this, getLocationNode(coordinate));
+					nextIntent.putExtra(SelectTeamActivity.CURRENT_NODE, node);
+					nextIntent.putExtra(SelectTeamActivity.EXTRA_MESSAGE, team);
+					startActivity(nextIntent);
+				}
 				
-				Intent nextIntent = new Intent(this, getLocationNode(coordinate));
-				nextIntent.putExtra(SelectTeamActivity.CURRENT_NODE, node);
-				nextIntent.putExtra(SelectTeamActivity.EXTRA_MESSAGE, team);
-				startActivity(nextIntent);
 			}
 			
 			
@@ -319,44 +324,75 @@ public final class MainActivity extends FragmentActivity
 	
 	private Class getLocationNode(String coordinate)
 	{
+		Intent intent = getIntent();
+		String oldNode = intent.getStringExtra(SelectTeamActivity.CURRENT_NODE);
+		
 		switch(coordinateList.indexOf(coordinate))
 		{
 			case 0:
-				return IntroNode.class;		//S: Shared
+				break;		//S: Shared
 			case 1:
+				if (oldNode.equals("NodeOne"))
+				{break;}
 				return NodeOne.class;		//1: USA
 			case 2:
+				if (oldNode.equals("NodeOne"))
+				{break;}
 				return NodeOne.class;		//1: USSR
 			case 3:
+				if (oldNode.equals("NodeOneFive"))
+				{break;}
 				return NodeOneFive.class;	//15: USA
 			case 4:
+				if (oldNode.equals("NodeOneFive"))
+				{break;}
 				return NodeOneFive.class;	//15: USSR
 			case 5:
+				if (oldNode.equals("NodeTwoTwo"))
+				{break;}
 				return NodeTwo.class;		//2: Shared
 			case 6:
+				if (oldNode.equals("NodeThreeChoice"))
+				{break;}
 				return NodeThree.class;		//3: USA
 			case 7:
+				if (oldNode.equals("NodeThreeChoice"))
+				{break;}
 				return NodeThree.class;		//3: USSR
 			case 8:
+				if (oldNode.equals("NodeThreeFive"))
+				{break;}
 				return NodeThreeFive.class;	//35: USA
 			case 9:
+				if (oldNode.equals("NodeThreeFive"))
+				{break;}
 				return NodeThreeFive.class;	//35: USSR
 			case 10:
+				if (oldNode.equals("NodeFour"))
+				{break;}
 				return NodeFour.class;		//4: USA
 			case 11:
+				if (oldNode.equals("NodeFour" ) || oldNode.equals("NodeFourActivity" ))
+				{break;}
 				return NodeFour.class;		//4: USSR
 			case 12:
+				if (oldNode.equals("NodeFiveTwo") || oldNode.equals("NodeFive"))
+				{break;}
 				return NodeFive.class;		//5: Shared
 			case 13:
+				if (oldNode.equals("NodeEnd"))
+				{break;}
 				return NodeEnd.class;		//End: USA
 			case 14:
+				if (oldNode.equals("NodeEnd"))
+				{break;}
 				return NodeEnd.class;		//End: USSR
 			case 15:
-				return NodeFourActivity.class;		//Location: Nygaard
+				break;		//Location: Nygaard
 			default:
 				break;
 		}
-		return MainActivity.class;			//Own class
+		return null;			//Own class
 	}
 
 	private void setNextStoryMarker()
@@ -373,28 +409,46 @@ public final class MainActivity extends FragmentActivity
 			if (team.equals("USA"))
 			{
 				addHintOverlay(coordinateList.get(1), radius); //USA1
-
-				
 			} else //team = USSR
 			{
 				addHintOverlay(coordinateList.get(2), radius); //USSR1
 			}
 			
-		} else if (oldNode.equals("NodeOne")) //Go to NodeTwo
+		} else if (oldNode.equals("NodeOne")) //Go to NodeTwo or NodeOneFive
+		{
+			if (team.equals("USA"))
+			{
+				if (NodeOneWon)
+				{
+					addHintOverlay(coordinateList.get(5), radius); //Shared2
+				} else
+				{
+					addHintOverlay(coordinateList.get(3), radius); //USA15
+				}
+			} else //team = USSR
+			{
+				if (NodeOneWon)
+				{
+					addHintOverlay(coordinateList.get(5), radius); //Shared2
+				} else
+				{
+					addHintOverlay(coordinateList.get(4), radius); //USSR15
+				}
+			} 
+				
+		}  else if (oldNode.equals("OneFive")) //Go to NodeTwo
 		{
 			addHintOverlay(coordinateList.get(5), radius); //Shared2
-		} else if (oldNode.equals("NodeTwo")) //Go to NodeThree
+		} else if (oldNode.equals("NodeTwoTwo")) //Go to NodeThree
 		{
 			if (team.equals("USA"))
 			{
 				addHintOverlay(coordinateList.get(6), radius); //USA3
-
-				
 			} else //team = USSR
 			{
 				addHintOverlay(coordinateList.get(7), radius); //USSR3
 			}
-		} else if (oldNode.equals("NodeThreeActivity"))  //Go to either 3.5 or 4
+		} else if (oldNode.equals("NodeThreeChoice"))  //Go to either 3.5 or 4
 		{
 			if (team.equals("USA"))
 			{
@@ -428,8 +482,8 @@ public final class MainActivity extends FragmentActivity
 			}	
 		} else if (oldNode.equals("NodeFour")) 
 		{
-			addHintOverlay(coordinateList.get(12), radius); //Shared5
-		} else if (oldNode.equals("NodeFive")) //Go to End
+			//Get there by Activity (geiger)
+		} else if (oldNode.equals("NodeFiveTwo")) //Go to End
 		{
 			if (team.equals("USA"))
 			{

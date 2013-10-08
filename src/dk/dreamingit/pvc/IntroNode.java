@@ -13,7 +13,7 @@ public class IntroNode extends EmptyNode
 	public void goNext(View V) {
 		
 		
-		Intent intent = createNextIntent(NodeOne.class);
+		Intent intent = createNextIntent(MascotNode.class);
 		startActivity(intent);
 		
 	}

@@ -3,11 +3,19 @@ package dk.dreamingit.pvc;
 import android.content.Intent;
 import android.view.View;
 
-public class NodeMapIntro extends EmptyNode {
+public class NodeFiveTwo extends EmptyNode {
 
 	@Override
 	protected void inflateNarrative() {
-		setStory(R.string.shared_map_intro);
+	
+		if (team.equals("USA"))
+		{
+			setStory(R.string.usa_5_2);
+		} else
+		{
+			setStory(R.string.ussr_5_2);
+		}
+
 	}
 
 	@Override
@@ -16,7 +24,5 @@ public class NodeMapIntro extends EmptyNode {
 		startActivity(intent);
 
 	}
-
-
 
 }

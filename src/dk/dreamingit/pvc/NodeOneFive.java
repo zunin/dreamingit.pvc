@@ -1,13 +1,15 @@
 package dk.dreamingit.pvc;
 
+import android.content.Intent;
 import android.view.View;
 
 public class NodeOneFive extends EmptyNode
 {
-
+	
 	@Override
 	public void goNext(View V) {
-		// TODO Auto-generated method stub
+		Intent intent = createNextIntent(MainActivity.class);
+		startActivity(intent);
 		
 	}
 

@@ -50,8 +50,11 @@
         <activity android:name="dk.dreamingit.pvc.SelectTeamActivity" />
         <activity android:name="dk.dreamingit.pvc.SpeechNode" />
         <activity android:name="dk.dreamingit.pvc.IntroNode" />
+        <activity android:name="dk.dreamingit.pvc.MascotNode" />
         <activity android:name="dk.dreamingit.pvc.NodeMapIntro" />
         <activity android:name="dk.dreamingit.pvc.MainActivity" />
+        <activity android:name="dk.dreamingit.pvc.NodeFiveTwo"></activity>
+        <activity android:name="dk.dreamingit.pvc.NodeTwoTwo"></activity>
         
         
         <activity android:name="dk.dreamingit.pvc.EmptyNode" >

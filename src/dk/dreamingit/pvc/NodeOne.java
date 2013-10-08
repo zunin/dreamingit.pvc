@@ -5,22 +5,34 @@ import android.view.View;
 
 public class NodeOne extends EmptyNode
 {
+	private boolean arrivedFirst = true;
 
 	@Override
 	public void goNext(View V) {
-		Intent intent = createNextIntent(NodeMapIntro.class);
-		startActivity(intent);
-		
+			Intent intent = createNextIntent(MainActivity.class);
+			startActivity(intent);		
 	}
 
 	@Override
 	protected void inflateNarrative() {
 		if (team.equals("USA"))
 		{
-			setStory(R.string.usa_intro_ham);
+			if (arrivedFirst)
+			{
+				setStory(R.string.usa_1_direct);
+			} else
+			{
+				setStory(R.string.usa_1_detour);
+			}
 		} else
 		{
-			setStory(R.string.ussr_intro_laika);
+			if (arrivedFirst)
+			{
+				setStory(R.string.ussr_1_direct);
+			} else
+			{
+				setStory(R.string.ussr_1_detour);
+			}
 		}
 		
 	}

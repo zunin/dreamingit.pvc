@@ -9,10 +9,9 @@
     tools:context=".NodeThreeChoice"
     android:orientation="vertical" >
 
-    <TextView
+    <TextView android:id="@+id/three_choice_story"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_height="wrap_content" />
     
     <TextView
         android:layout_width="wrap_content"
@@ -22,11 +21,11 @@
     <Button android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:text="@string/nodeThreeFiveYes"
-        	android:onClick=""/>
+        	android:onClick="clickedYes"/>
     
     <Button android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:text="@string/nodeThreeFiveNo"
-        	android:onClick=""/>   	
+        	android:onClick="clickedNo"/>   	
 
 </LinearLayout>

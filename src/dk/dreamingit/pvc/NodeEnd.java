@@ -4,6 +4,8 @@ import android.view.View;
 
 public class NodeEnd extends EmptyNode {
 
+	private boolean win = true;
+	
 	@Override
 	public void goNext(View V) {
 		// TODO Auto-generated method stub
@@ -16,10 +18,22 @@ public class NodeEnd extends EmptyNode {
 		
 		if (team.equals("USA"))
 		{
-			setStory(R.string.usa_endwin);
+			if(win)
+			{
+				setStory(R.string.usa_endwin);	
+			} else
+			{
+				setStory(R.string.usa_endlose);
+			}
 		} else
 		{
-			setStory(R.string.ussr_endlose);
+			if(win)
+			{
+				setStory(R.string.ussr_endwin);	
+			} else
+			{
+				setStory(R.string.ussr_endlose);
+			}
 		}
 		
 	}

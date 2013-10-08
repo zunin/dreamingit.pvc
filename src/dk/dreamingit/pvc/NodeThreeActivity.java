@@ -147,7 +147,8 @@ public class NodeThreeActivity extends Activity {
         	
         	checkResults();
         	index++;
-        	if (index < resKeys.size())
+        	//if (index < resKeys.size())
+        	if (index < 5)
         	{
         		clueView.setText(resKeys.get(index) + " " + score);
         	} else

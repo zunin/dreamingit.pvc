@@ -26,6 +26,8 @@ public class NodeFourActivity extends FragmentActivity
 	private Location taskLocation, nodeFourLocation;
 	private double maxDistance;
 	private TextView text;
+	private boolean isPlaying = false;
+	private String team;
 	
 	private static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(5000)         // 5 seconds
@@ -39,11 +41,11 @@ public class NodeFourActivity extends FragmentActivity
 		
 		//Get data
 		Intent intent = getIntent();
-		String team = intent.getStringExtra(SelectTeamActivity.EXTRA_MESSAGE);
+		team = intent.getStringExtra(SelectTeamActivity.EXTRA_MESSAGE);
 		
 		//Setup player
 		player = new GeigerPlayer(this);
-		player.onStart(delay); //(secDelayPerTic)
+		//player.onStart(delay); //(secDelayPerTic)
 		
 		text = (TextView) findViewById(R.id.delay);
 		
@@ -151,39 +153,55 @@ public class NodeFourActivity extends FragmentActivity
 		updateDistance(location);
 	}
 	
+	public String nodeName()
+	{
+		return this.getClass().getSimpleName();
+	}
+	
 	public void updateDistance(Location location)
 	{
 		double distance = location.distanceTo(taskLocation);
 		
-		if (distance < maxDistance/5) //0-20%
+		if (distance < 7)
+		{
+			player.onStop();
+			//player.onDestroy();
+			Intent intent = new Intent(this, NodeFive.class);
+			intent.putExtra(SelectTeamActivity.EXTRA_MESSAGE, team);
+			intent.putExtra(SelectTeamActivity.CURRENT_NODE, nodeName());
+			startActivity(intent);
+			this.finish();
+		} else
+		
+		if (distance < maxDistance/6) 
 		{
 			if (delay != 1)
 			{
 				delay = 1;
 				restart();
 			}
-		} else if (distance < (maxDistance/5) * 2) //20-40%
+		} else if (distance < (maxDistance/6) * 2)
 		{
 			if (delay != 2)
 			{
 				delay = 2;
 				restart();
 			}
-		} else if (distance < (maxDistance/5) * 3) //40-60%
+		} else if (distance < (maxDistance/6) * 3)
 		{
 			if (delay != 3)
 			{
 				delay = 3;
 				restart();
 			}
-		} else if (distance < (maxDistance/5) * 4) //60-80%
+		} else if (distance < (maxDistance/6) * 4) 
 		{
 			if (delay != 4)
 			{
 				delay = 4;
 				restart();
 			}
-		} else if (distance < (maxDistance/5) * 5) //80-100%
+		} else if (distance < (maxDistance/6) * 5)
 		{
 			if (delay != 5)
 			{
@@ -195,7 +213,14 @@ public class NodeFourActivity extends FragmentActivity
 	
 	private void restart()
 	{
-		player.onStop();
-		player.onStart(delay);
+		if(isPlaying)
+		{
+			player.onStop();
+			player.onStart(delay);
+		} else
+		{
+			player.onStart(delay);
+			isPlaying = true;
+		}
 	}
 }

@@ -13,12 +13,13 @@ public class SpeechNode extends EmptyNode
 		setContentView(R.layout.speech_view);
 		drawKennedy();
 		
-		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.gotomoon);
+		//MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.gotomoon);
+		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.geiger);
 		mediaPlayer.setOnCompletionListener(this);
-		//mediaPlayer.start();
+		mediaPlayer.start();
 		
 		//Skip intro
-		onCompletion(mediaPlayer);
+		//onCompletion(mediaPlayer);
 
 	}
 
