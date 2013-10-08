@@ -26,7 +26,7 @@ public class NodeFourActivity extends FragmentActivity
 	private Location taskLocation, nodeFourLocation;
 	private double maxDistance;
 	private TextView text;
-	private boolean isPlaying = false;
+	private boolean isPlaying = false, found = false;
 	private String team;
 	
 	private static final LocationRequest REQUEST = LocationRequest.create()
@@ -78,16 +78,9 @@ public class NodeFourActivity extends FragmentActivity
 		nodeFourLocation.setLongitude(longitude);
 		
 		//Setup taskLocation
-		coordinate = "";
-		if (team.equals("USA"))
-		{
-			coordinate = getResources().getString(R.string.coord_4endUSA);
-		} else //team = USSR
-		{
-			coordinate = getResources().getString(R.string.coord_4endUSSR);
-		}
-		
+		coordinate = getResources().getString(R.string.coord_5);
 		//coordinate = "56.169727, 10.189641"; //Stor Center Nord Slut
+		//coordinate = "56.171794, 10.189998"; //Nygaard
 		
 		latitude = Double.valueOf(coordinate.substring(0, 8));
 		longitude = Double.valueOf(coordinate.substring(10, 18));
@@ -162,15 +155,15 @@ public class NodeFourActivity extends FragmentActivity
 	{
 		double distance = location.distanceTo(taskLocation);
 		
-		if (distance < 7)
+		if (distance < 7 && !found)
 		{
-			player.onStop();
-			//player.onDestroy();
+			found = true;
+			player.onDestroy();
 			Intent intent = new Intent(this, NodeFive.class);
 			intent.putExtra(SelectTeamActivity.EXTRA_MESSAGE, team);
 			intent.putExtra(SelectTeamActivity.CURRENT_NODE, nodeName());
 			startActivity(intent);
-			this.finish();
+
 		} else
 		
 		if (distance < maxDistance/6) 

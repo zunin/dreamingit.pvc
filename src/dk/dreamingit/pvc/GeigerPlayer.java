@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.Toast;
 
 public class GeigerPlayer  {
     
@@ -16,11 +17,13 @@ public class GeigerPlayer  {
     int mPeriod = 1;
     private long mTickDuration;
     //private long mStopTimeInFuture;
+    Context fieldCtx;
     
     public GeigerPlayer(Context ctx) {
             
             tickPool = new GeigerPlayerSound(ctx, 10, R.raw.geiger);
             tockPool = new GeigerPlayerSound(ctx, 10, R.raw.geiger);
+            fieldCtx = ctx;
             
     }
     
@@ -38,6 +41,8 @@ public class GeigerPlayer  {
     
     private  void run() {
             //Log.i("metronome", "tid: " + Thread.currentThread().getId() + " run");
+            if (tockPool == null && tickPool == null)
+            		return;
             
             if (!mRunning)
                     return;

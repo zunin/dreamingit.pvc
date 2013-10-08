@@ -81,11 +81,8 @@ public final class MainActivity extends FragmentActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		Intent intent = getIntent();
-		String message = intent.getStringExtra(SelectTeamActivity.EXTRA_MESSAGE);
+		team = intent.getStringExtra(SelectTeamActivity.EXTRA_MESSAGE);
 		node = intent.getStringExtra(SelectTeamActivity.CURRENT_NODE);
-		team = message;
-		mMessageView = (TextView) findViewById(R.id.message_text);
-		mMessageView.setText(message);
 		
 		//get those coordinates, get them. real dirty
 		Resources res = getResources();
@@ -106,7 +103,7 @@ public final class MainActivity extends FragmentActivity
 		coordinateList.add(res.getString(R.string.coord_EUSA));
 		coordinateList.add(res.getString(R.string.coord_EUSSR));
 		//coordinateList.add("56.171794, 10.189998"); //Nygaard
-		coordinateList.add("56.170937, 10.190135"); //Hjørnet af StorCenter Nord
+		//coordinateList.add("56.170937, 10.190135"); //Hjørnet af StorCenter Nord
 		
 		//addHintOverlay(56.170937, 10.190135, 1); //SCN - start
 		//addHintOverlay(56.169727, 10.189641, 1); //SCN - slut
@@ -147,44 +144,6 @@ public final class MainActivity extends FragmentActivity
             }
         }
     }
-
-    /**
-     * Button to get current Location. This demonstrates how to get the current Location as required
-     * without needing to register a LocationListener.
-     */
-    public void showMyLocation(View view) {
-        if (mLocationClient != null && mLocationClient.isConnected()) {
-            //String msg = "Location = " + mLocationClient.getLastLocation();
-        	/*
-        	Location location = mLocationClient.getLastLocation();
-        	String msg = "";
-        	for (String coordinate : coordinateList)
-    		{
-    			double latitude = Double.valueOf(coordinate.substring(0, 8));
-    			double longitude = Double.valueOf(coordinate.substring(10, 18));
-    			
-    			if (location != null)
-    			{
-    				Location curLoc = new Location("Current Location");
-    				curLoc.setLatitude(latitude);
-    				curLoc.setLongitude(longitude);
-    				
-    				if (location.distanceTo(curLoc) < 100)
-    				{
-    					msg += " #" + coordinateList.indexOf(coordinate) + ": " + location.distanceTo(curLoc);
-        				msg += " Acc: " + location.getAccuracy() + "m ";
-    				}
-    				
-    			}
-    			
-        	
-    		}
-        	Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show(); */
-        	Toast.makeText(getApplicationContext(), "Acc: " + mLocationClient.getLastLocation().getAccuracy(), Toast.LENGTH_SHORT).show();
-        }
-    }
-    
-    
     
     private void setUpLocationClientIfNeeded() {
         if (mLocationClient == null) {
@@ -205,7 +164,7 @@ public final class MainActivity extends FragmentActivity
 
 	@Override
 	public boolean onMyLocationButtonClick() {
-		Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;

@@ -2,6 +2,7 @@ package dk.dreamingit.pvc;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 
 public class NodeFour extends EmptyNode {
 
@@ -13,6 +14,8 @@ public class NodeFour extends EmptyNode {
 
 	@Override
 	protected void inflateNarrative() {
+		drawRay();
+		
 		if (team.equals("USA"))
 		{
 			setStory(R.string.usa_4);
@@ -21,6 +24,12 @@ public class NodeFour extends EmptyNode {
 			setStory(R.string.ussr_4);
 		}
 		
+	}
+	
+	private void drawRay()
+	{
+		ImageView mascotView = (ImageView) findViewById(R.id.mascot_view);
+		mascotView.setImageDrawable(getResources().getDrawable(R.drawable.rayxiong));
 	}
 
 }

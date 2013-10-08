@@ -46,7 +46,7 @@
 
     <!-- NodeThreeChoice -->
     <string name="title_activity_node_three_choice">NodeThreeChoice</string>
-    <string name="nodeThreeFiveQuestion">Vil du springe den i luften?</string>
+    <string name="nodeThreeFiveQuestion">Vil i springe den i luften?</string>
     <string name="nodeThreeFiveYes">Ja</string>
     <string name="nodeThreeFiveNo">Nej</string>
     

@@ -29,8 +29,12 @@ public final class GeigerPlayerSound {
         }
         
         public void start() {
-                
+        		if (mp == null)
+        			{return;}
+        			
                 for (int i = mLast + 1; i < mp.length; i++) {
+                		if(mp[i] == null)
+                		{return;}
                         if (!mp[i].isPlaying()) {
                                 
                                 mLast = i;

@@ -8,7 +8,8 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/select_team_into" />
+        android:text="@string/select_team_into" 
+        android:textSize="20dp"/>
     
     <Button android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
