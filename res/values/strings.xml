@@ -49,12 +49,16 @@
     <string name="nodeThreeFiveQuestion">Vil i springe den i luften?</string>
     <string name="nodeThreeFiveYes">Ja</string>
     <string name="nodeThreeFiveNo">Nej</string>
-    
+
     <!-- NodeThreeFive -->
     <string name="explode_text">Spring i luften!</string>
-    
+
     <!-- NodeFourActivity -->
     <string name="title_activity_node_four">NodeFourActivity</string>
     <string name="node_four_distance">Afstand til radioaktiv kilde: </string>
+
+    <!-- Service -->
+    <string name="service_name">Server Service (den med dataen)</string>
+    <string name="title_activity_waiting_for_team">WaitingForTeamActivity</string>
 
 </resources>

@@ -22,11 +22,15 @@ import java.util.Random;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
@@ -65,11 +69,13 @@ public final class MainActivity extends FragmentActivity
     private TextView mMessageView;
     
     private ArrayList<String> coordinateList;
+    private ServerService server;
     
-    private String team;
+    public static String team;
     private String node;
-    private boolean ThreeFiveChosen = true;
-    private boolean NodeOneWon = true;
+    public static boolean ThreeFiveChosen = false;
+    public static boolean NodeOneWon = false;
+    public static boolean win = false;
     protected PowerManager.WakeLock mWakeLock;
     private static final LatLng UNIPARKEN = new LatLng(56.168070, 10.204603);
     // These settings are the same as the settings for the map. They will in fact give you updates
@@ -121,10 +127,38 @@ public final class MainActivity extends FragmentActivity
         setUpLocationClientIfNeeded();
         mLocationClient.connect();
 	}
+	/**
+	 * * START SERVICE
+	 */
+	  @Override
+	    protected void onStart() {
+	        super.onStart();
+
+	    }
+	 
+	  private ServiceConnection mConnection = new ServiceConnection() {
+
+		    public void onServiceConnected(ComponentName className, IBinder binder) {
+		      server = ((ServerService.LocalBinder) binder).getService();
+		      Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
+		    }
+
+		    public void onServiceDisconnected(ComponentName className) {
+		    	Toast.makeText(getApplicationContext(), "DisConnected", Toast.LENGTH_SHORT).show();
+		      //server = null;
+		    }
+		  };
+	
 	
     @Override
     protected void onResume() {
         super.onResume();
+        // Bind to LocalService
+        Intent intent = new Intent(this, ServerService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        //bindService(new Intent(this, ServerService.class), mConnection, Context.BIND_AUTO_CREATE);
+        
+        
         setUpMapIfNeeded();
         setUpLocationClientIfNeeded();
         mLocationClient.connect();
@@ -134,10 +168,15 @@ public final class MainActivity extends FragmentActivity
     @Override
     public void onPause() {
         super.onPause();
+        	unbindService(mConnection);
+	    
         if (mLocationClient != null) {
             mLocationClient.disconnect();
         }
     }
+	/**
+	 * END SERVICE
+	 * */
     
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
@@ -183,9 +222,11 @@ public final class MainActivity extends FragmentActivity
 		//Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
+		//server.openConnection();
+		Toast.makeText(this, "Flags(ThreeFiveChosen, NodeOneWon, win):"+ThreeFiveChosen+NodeOneWon+win, Toast.LENGTH_SHORT).show();
         return false;
 	}
-
+	
 	@Override
 	public void onLocationChanged(Location location) {
 		/*
@@ -199,6 +240,7 @@ public final class MainActivity extends FragmentActivity
 		
 		for (String coordinate : coordinateList)
 		{
+			server.updateAllFlags();
 			//Create a new location with coordinates from Nodes
 			double latitude = Double.valueOf(coordinate.substring(0, 8));
 			double longitude = Double.valueOf(coordinate.substring(10, 18));

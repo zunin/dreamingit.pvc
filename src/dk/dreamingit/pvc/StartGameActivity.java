@@ -1,16 +1,31 @@
 package dk.dreamingit.pvc;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
 import android.os.PowerManager;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class StartGameActivity extends Activity {
 
 	protected PowerManager.WakeLock mWakeLock;
+	private ServerService server;
+	public static String gameStarted = "no";
+	private TextView storyView;
+	
+	// Repeat task
+	
+    //Check every 1 sec
+    final int delay = 1000;//milli seconds
+	private final Handler h = new Handler();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +36,61 @@ public class StartGameActivity extends Activity {
          * will make the screen be always on until this Activity gets destroyed. */
         final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "My Tag");
+        storyView = (TextView) findViewById(R.id.start_game_description);
+	}
+	
+	 private ServiceConnection mConnection = new ServiceConnection() {
+
+		    public void onServiceConnected(ComponentName className, IBinder binder) {
+		      server = ((ServerService.LocalBinder) binder).getService();
+		      Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
+		    }
+
+		    public void onServiceDisconnected(ComponentName className) {
+		    	Toast.makeText(getApplicationContext(), "DisConnected", Toast.LENGTH_SHORT).show();
+		      //server = null;
+		    }
+		  };
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		h.postDelayed(repeater, delay);
+	}
+		  
+	@Override
+    protected void onStart() {
+        super.onStart();
+     // Bind to LocalService
+        //h.postDelayed(repeater, delay);
+        Intent intent = new Intent(this, ServerService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+	
+	private Runnable repeater = new Runnable(){
+        public void run(){
+            server.getGameStart();
+            
+            if (gameStarted.equals("yes") ||
+            		gameStarted.equals("USA") || 
+            		gameStarted.equals("USSR"))
+            {
+        		Intent intent = new Intent(getApplicationContext(), WaitingForTeamActivity.class);
+        		startActivity(intent);
+            } else if (gameStarted.equals("no"))
+            {
+            	h.postDelayed(repeater, delay);
+            }
+            
+            
+        }
+	};
+	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		h.removeCallbacks(repeater);
+		unbindService(mConnection);
 	}
 	
 	@Override
@@ -38,6 +108,7 @@ public class StartGameActivity extends Activity {
 	
 	public void startGameClicked(View v)
 	{
+		server.postConnection("gamestart", "yes");
 		Intent intent = new Intent(this, SelectTeamActivity.class);
 		startActivity(intent);
 	}
