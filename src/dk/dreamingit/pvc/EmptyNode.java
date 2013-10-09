@@ -1,7 +1,9 @@
 package dk.dreamingit.pvc;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.os.Vibrator;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
@@ -16,6 +18,7 @@ public abstract class EmptyNode extends Activity {
 		private Resources res;
 		protected String team;
 		protected PowerManager.WakeLock mWakeLock;
+		private Vibrator v;
 	
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {

@@ -51,6 +51,7 @@ public class NodeThreeChoice extends Activity {
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.putExtra(SelectTeamActivity.EXTRA_MESSAGE, team);
 		intent.putExtra(SelectTeamActivity.CURRENT_NODE, this.getClass().getSimpleName());
+		MainActivity.ThreeFiveChosen = true;
 		startActivity(intent);
 	}
 	
@@ -59,6 +60,7 @@ public class NodeThreeChoice extends Activity {
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.putExtra(SelectTeamActivity.EXTRA_MESSAGE, team);
 		intent.putExtra(SelectTeamActivity.CURRENT_NODE, this.getClass().getSimpleName());
+		MainActivity.ThreeFiveChosen = false;
 		startActivity(intent);
 	}
 	

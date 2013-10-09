@@ -16,13 +16,10 @@ public class SpeechNode extends EmptyNode
 		drawKennedy();
 		
 		//MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.gotomoon);
-		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.geiger);
+		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.gotomoon);
 		mediaPlayer.setOnCompletionListener(this);
 		mediaPlayer.start();
 		
-		Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-		// Vibrate for 500 milliseconds
-		v.vibrate(500);
 		
 		//Skip intro
 		//onCompletion(mediaPlayer);

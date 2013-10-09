@@ -72,10 +72,14 @@ public final class MainActivity extends FragmentActivity
     private ServerService server;
     
     public static String team;
+    public static int voiceScore = 0;
     private String node;
+    
     public static boolean ThreeFiveChosen = false;
     public static boolean NodeOneWon = false;
     public static boolean win = false;
+    public static boolean RadarBlownUp = false;
+    
     protected PowerManager.WakeLock mWakeLock;
     private static final LatLng UNIPARKEN = new LatLng(56.168070, 10.204603);
     // These settings are the same as the settings for the map. They will in fact give you updates
@@ -121,6 +125,10 @@ public final class MainActivity extends FragmentActivity
 		
 		//addHintOverlay(56.170937, 10.190135, 1); //SCN - start
 		//addHintOverlay(56.169727, 10.189641, 1); //SCN - slut
+		//8 + 9
+		//String nygaard = "56.171794, 10.189998";
+		//coordinateList.add(8, nygaard);
+		//coordinateList.add(9, nygaard);
 		
 		//onResume stuff
 		setUpMapIfNeeded();
@@ -140,11 +148,11 @@ public final class MainActivity extends FragmentActivity
 
 		    public void onServiceConnected(ComponentName className, IBinder binder) {
 		      server = ((ServerService.LocalBinder) binder).getService();
-		      Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
+		      //Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
 		    }
 
 		    public void onServiceDisconnected(ComponentName className) {
-		    	Toast.makeText(getApplicationContext(), "DisConnected", Toast.LENGTH_SHORT).show();
+		    	//Toast.makeText(getApplicationContext(), "DisConnected", Toast.LENGTH_SHORT).show();
 		      //server = null;
 		    }
 		  };
@@ -223,7 +231,6 @@ public final class MainActivity extends FragmentActivity
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
 		//server.openConnection();
-		Toast.makeText(this, "Flags(ThreeFiveChosen, NodeOneWon, win):"+ThreeFiveChosen+NodeOneWon+win, Toast.LENGTH_SHORT).show();
         return false;
 	}
 	
@@ -237,10 +244,10 @@ public final class MainActivity extends FragmentActivity
 		
 		addHintOverlay(latitude, longitude, 10);
         */
-		
+		server.updateAllFlags();
 		for (String coordinate : coordinateList)
 		{
-			server.updateAllFlags();
+			
 			//Create a new location with coordinates from Nodes
 			double latitude = Double.valueOf(coordinate.substring(0, 8));
 			double longitude = Double.valueOf(coordinate.substring(10, 18));
@@ -288,7 +295,13 @@ public final class MainActivity extends FragmentActivity
 	}
 	
 	private void addHintOverlay(String coordinate, int radius)
-	{
+	{	//Coefficient for 3_%
+		int coefficient = 1;
+		if (RadarBlownUp)
+		{
+			coefficient = 3;
+		}
+		
 		//Translate string into coordinates
 		double latitude = Double.valueOf(coordinate.substring(0, 8));
 		double longitude = Double.valueOf(coordinate.substring(10, 18));
@@ -312,8 +325,8 @@ public final class MainActivity extends FragmentActivity
 		// LatLng nygaard = new LatLng(56.170937, 10.190135);
 		CircleOptions circleOptions = new CircleOptions()
 		  .center(point)   //set center
-		  .radius(radius)   //set radius in meters
-		  .fillColor(Color.argb(150, 0, 0, 0))
+		  .radius(radius*coefficient)   //set radius in meters
+		  .fillColor(Color.argb(150, 255, 255, 153))
 		  .strokeColor(Color.WHITE)
 		  .strokeWidth(5);
 		  
@@ -467,23 +480,32 @@ public final class MainActivity extends FragmentActivity
 			}
 		} else if (oldNode.equals("NodeThreeChoice"))  //Go to either 3.5 or 4
 		{
+			int bonusRadius = 0;
+			if (voiceScore > 20)
+			{
+				bonusRadius=0;
+			} else
+			{
+				bonusRadius = 30-voiceScore;
+			}
+			
 			if (team.equals("USA"))
 			{
 				if (ThreeFiveChosen)
 				{
-					addHintOverlay(coordinateList.get(8), radius); //USA35
+					addHintOverlay(coordinateList.get(8), radius+(bonusRadius)); //USA35
 				} else
 				{
-					addHintOverlay(coordinateList.get(10), radius); //USA4
+					addHintOverlay(coordinateList.get(10), radius+(bonusRadius)); //USA4
 				}
 			} else //team = USSR
 			{
 				if (ThreeFiveChosen)
 				{
-					addHintOverlay(coordinateList.get(9), radius); //USSR35
+					addHintOverlay(coordinateList.get(9), radius+(bonusRadius)); //USSR35
 				} else
 				{
-					addHintOverlay(coordinateList.get(11), radius); //USSR4
+					addHintOverlay(coordinateList.get(11), radius+(bonusRadius)); //USSR4
 				}
 			}
 		} else if (oldNode.equals("NodeThreeFive")) //Go to 4 

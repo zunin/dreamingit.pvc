@@ -1,6 +1,8 @@
 package dk.dreamingit.pvc;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -22,6 +24,17 @@ public class NodeThree extends EmptyNode {
 			setStory(R.string.ussr_3_1);
 		}
 		
+	}
+	
+	@Override
+    protected void onStart() {
+        super.onStart();
+		//Setup player
+		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.vednypost);
+		mediaPlayer.start();
+		//Vibrator
+		Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+		v.vibrate(1000);
 	}
 	
 	private void drawJT()

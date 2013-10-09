@@ -38,6 +38,7 @@ public class ServerService extends Service {
 	   // Binder given to clients
     private final IBinder mBinder = new LocalBinder();
     private String responseString = "";
+    private String errorcode = "Errorcode: ", values = "V: ";
 
     /**
      * Class used for the client Binder.  Because we know this service always
@@ -64,12 +65,15 @@ public class ServerService extends Service {
     	    		  HttpClient httpclient = new DefaultHttpClient();
     	    		    HttpResponse response = httpclient.execute(new HttpGet(url));
     	    		    StatusLine statusLine = response.getStatusLine();
+    	    		    Log.i("HttpResponseServerService: ", Integer.toString(statusLine.getStatusCode()));
+    	    		    errorcode += statusLine.toString();
     	    		    if(statusLine.getStatusCode() == HttpStatus.SC_OK){
     	    		        ByteArrayOutputStream out = new ByteArrayOutputStream();
     	    		        response.getEntity().writeTo(out);
-    	    		        out.close();
-    	    		        responseString = out.toString();
     	    		        
+    	    		        
+    	    		        responseString = out.toString();
+    	    		        out.close();
     	    		        //..more logic
     	    		    } else{
     	    		        //Closes the connection.
@@ -78,11 +82,13 @@ public class ServerService extends Service {
     	    		    }
     	    		}catch (Exception e)
     	    		{ 	Log.i("jsonConnection", e.getStackTrace()[0].toString());
-    	    			e.printStackTrace();
+    	    		errorcode += e.getClass();	
+    	    		e.printStackTrace();
     	    		    	}
     	    		    
     	        	
     	        } catch (Exception e) {
+    	        	errorcode += e.getClass();
     	            e.printStackTrace();
     	        }
     	    }
@@ -91,6 +97,11 @@ public class ServerService extends Service {
     	thread.start(); 
 		
 	}
+    
+    public String getErrorcode()
+    {
+    	return errorcode;
+    }
     
     public void postConnection(final String name, final String value)
 	{
@@ -116,12 +127,12 @@ public class ServerService extends Service {
     	                HttpResponse response = httpclient.execute(httppost);
     	                
     	            } catch (ClientProtocolException e) {
-    	                // TODO Auto-generated catch block
+    	            	errorcode += e.getClass();
     	            } catch (IOException e) {
-    	                // TODO Auto-generated catch block
+    	            	errorcode += e.getClass();
     	            }
     	        } catch (Exception e)
-    	        {}
+    	        {errorcode += e.getClass();}
     	    }
     	      });
 
@@ -152,7 +163,7 @@ public class ServerService extends Service {
     	{
     		if (json != null)
     		{
-        		setThreeFiveChosen(json);
+    			setRadarBlownUp(json);
                 setNodeOneWon(json);
                 setWin(json);
     		}
@@ -171,6 +182,7 @@ public class ServerService extends Service {
     	} catch (JSONException e)
     	{
     		json = null;
+    		errorcode += "RSPSTR="+responseString;
     	} finally
     	{
     		if (json != null)
@@ -225,20 +237,28 @@ public class ServerService extends Service {
         	if (jsonIsValue(json, "NodeEUSSR", "NotDone") &&
         			jsonIsValue(json, "NodeEUSSR", "NotDone"))
         	{
-        		MainActivity.NodeOneWon = true;
+        		MainActivity.win = true;
         	} else
         	{
-        		MainActivity.NodeOneWon = false;
+        		MainActivity.win = false;
         	}
     	}
     	MainActivity.win = true;
     }
     
-    public void setThreeFiveChosen(JSONObject json)
+    public void setRadarBlownUp(JSONObject json)
     {
-    	
-    	MainActivity.ThreeFiveChosen = true;
+    	if (jsonIsValue(json, "Node35USA", "USABlownup") &&
+    			MainActivity.team.equals("USA"))
+    	{
+    	MainActivity.RadarBlownUp = true;
+    	} else if (jsonIsValue(json, "Node35USSR", "USSRBlownup") &&
+    			MainActivity.team.equals("USSR"))
+    	{
+    	MainActivity.RadarBlownUp = true;
+    	}
     }
+    
     public void setNodeOneWon(JSONObject json)
     {
     	if (jsonIsValue(json, "AmIFirstNode1", "yes"))
@@ -250,9 +270,18 @@ public class ServerService extends Service {
     	}
     }
     
+    public String getValue()
+    {
+    	return values;
+    }
+    
     private boolean jsonIsValue(JSONObject json, String name, String value)
     {
     	try{
+    		if(name.equals("statusnode35"))
+    		{
+    			values = json.get(name).toString();
+    		}
     		if (json.get(name).equals(value))
     		{
     			return true;

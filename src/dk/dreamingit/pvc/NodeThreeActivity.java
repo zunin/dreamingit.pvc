@@ -165,10 +165,12 @@ public class NodeThreeActivity extends Activity {
         	//if (index < resKeys.size())
         	if (index < 5)
         	{
-        		clueView.setText(resKeys.get(index) + " " + score);
+        		clueView.setText(resKeys.get(index));
         	} else
         	{
         		// Next activity
+        		MainActivity.voiceScore = score;
+        		
         		String team = getIntent().getStringExtra(SelectTeamActivity.EXTRA_MESSAGE);
         		Intent nextIntent = new Intent(this, NodeThreeChoice.class);
     			nextIntent.putExtra(SelectTeamActivity.EXTRA_MESSAGE, team);

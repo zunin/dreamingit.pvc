@@ -23,8 +23,8 @@ public class StartGameActivity extends Activity {
 	
 	// Repeat task
 	
-    //Check every 1 sec
-    final int delay = 1000;//milli seconds
+    //Check every 5 sec
+    final int delay = 5000;//milli seconds
 	private final Handler h = new Handler();
 	
 	@Override
@@ -43,11 +43,11 @@ public class StartGameActivity extends Activity {
 
 		    public void onServiceConnected(ComponentName className, IBinder binder) {
 		      server = ((ServerService.LocalBinder) binder).getService();
-		      Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
+		      //Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
 		    }
 
 		    public void onServiceDisconnected(ComponentName className) {
-		    	Toast.makeText(getApplicationContext(), "DisConnected", Toast.LENGTH_SHORT).show();
+		    	//Toast.makeText(getApplicationContext(), "DisConnected", Toast.LENGTH_SHORT).show();
 		      //server = null;
 		    }
 		  };
@@ -56,15 +56,17 @@ public class StartGameActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		h.postDelayed(repeater, delay);
-	}
+	}  
 		  
 	@Override
     protected void onStart() {
         super.onStart();
+        
      // Bind to LocalService
         //h.postDelayed(repeater, delay);
         Intent intent = new Intent(this, ServerService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        
     }
 	
 	private Runnable repeater = new Runnable(){
@@ -79,7 +81,10 @@ public class StartGameActivity extends Activity {
         		startActivity(intent);
             } else if (gameStarted.equals("no"))
             {
-            	h.postDelayed(repeater, delay);
+            	h.removeCallbacks(repeater);
+            	boolean resp = (h.postDelayed(repeater, delay));
+            	//Toast.makeText(getApplicationContext(), "postDelayed: "+resp+gameStarted, Toast.LENGTH_SHORT).show();
+            	//Toast.makeText(getApplicationContext(), server.getErrorcode(), Toast.LENGTH_SHORT).show();
             }
             
             

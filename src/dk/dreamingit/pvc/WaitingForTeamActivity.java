@@ -17,9 +17,9 @@ public class WaitingForTeamActivity extends Activity {
 	private ServerService server;
 	public static String gameStarted = "";
 	protected PowerManager.WakeLock mWakeLock;
-    //Check every 1 sec
+    //Check every 5 sec
     final Handler h = new Handler();
-    final int delay = 1000;//milli seconds
+    final int delay = 5000;//milli seconds
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,7 @@ public class WaitingForTeamActivity extends Activity {
 	private Runnable repeater = new Runnable(){
         public void run(){
             server.getOtherTeam();
+            Toast.makeText(getApplicationContext(), "gameStarted: "+gameStarted, Toast.LENGTH_SHORT).show();
             
             if (gameStarted.equals("USA"))
             {

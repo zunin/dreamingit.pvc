@@ -10,6 +10,7 @@ import com.google.android.gms.location.LocationListener;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.os.Vibrator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
@@ -30,6 +31,9 @@ public class NodeFourActivity extends FragmentActivity
 	private TextView text;
 	private boolean isPlaying = false, found = false;
 	private String team;
+	private long[] pattern = new long[3];
+	private long vibrateDelay; 
+	private Vibrator v;
 	protected PowerManager.WakeLock mWakeLock;
 	
 	private static final LocationRequest REQUEST = LocationRequest.create()
@@ -55,6 +59,9 @@ public class NodeFourActivity extends FragmentActivity
 		//Setup player
 		player = new GeigerPlayer(this);
 		//player.onStart(delay); //(secDelayPerTic)
+		
+		//Setup vibrator
+		//Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		
 		text = (TextView) findViewById(R.id.delay);
 		
@@ -82,7 +89,7 @@ public class NodeFourActivity extends FragmentActivity
 		/*double latitude = Double.valueOf(coordinate.substring(0, 8));
 		double longitude = Double.valueOf(coordinate.substring(10, 18));*/
 		
-		//coordinate = "56.170937, 10.190135"; //Stor Center Nord Hjørne
+		coordinate = "56.170937, 10.190135"; //Stor Center Nord Hjørne
 		//coordinate = "56.171794, 10.189998"; //Nygaard
 		
 		double latitude = Double.valueOf(coordinate.substring(0, 8));
@@ -93,8 +100,8 @@ public class NodeFourActivity extends FragmentActivity
 		nodeFourLocation.setLongitude(longitude);
 		
 		//Setup taskLocation
-		coordinate = getResources().getString(R.string.coord_5);
-		//coordinate = "56.169727, 10.189641"; //Stor Center Nord Slut
+		//coordinate = getResources().getString(R.string.coord_5);
+		coordinate = "56.169727, 10.189641"; //Stor Center Nord Slut
 		//coordinate = "56.171794, 10.189998"; //Nygaard
 		
 		latitude = Double.valueOf(coordinate.substring(0, 8));
@@ -110,6 +117,7 @@ public class NodeFourActivity extends FragmentActivity
     protected void onResume() {
         super.onResume();
         //setUpMapIfNeeded();
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         setUpLocationClientIfNeeded();
         mLocationClient.connect();
     }
@@ -170,10 +178,16 @@ public class NodeFourActivity extends FragmentActivity
 	{
 		double distance = location.distanceTo(taskLocation);
 		
-		if (distance < 7 && !found)
+		if (distance < 7 && found == false
+				&& location.getAccuracy() < 20)
 		{
 			found = true;
 			player.onDestroy();
+			if (v != null)
+			{
+				v.cancel();
+			}
+			
 			Intent intent = new Intent(this, NodeFive.class);
 			intent.putExtra(SelectTeamActivity.EXTRA_MESSAGE, team);
 			intent.putExtra(SelectTeamActivity.CURRENT_NODE, nodeName());
@@ -221,14 +235,34 @@ public class NodeFourActivity extends FragmentActivity
 	
 	private void restart()
 	{
+		vibrateDelay = delay*1000;
+		
+		pattern[0] = 0;
+		//pattern[1] = 967;
+		pattern[1] = 500;
+		pattern[2] = vibrateDelay;
+		
 		if(isPlaying)
 		{
+			if (v != null)
+			{
+				v.cancel();
+				v.vibrate(pattern, 0);
+			}
 			player.onStop();
 			player.onStart(delay);
+
+			
 		} else
 		{
+			
+			
 			player.onStart(delay);
 			isPlaying = true;
+			if (v != null)
+			{
+				v.vibrate(pattern, 0);
+			}
 		}
 	}
 }

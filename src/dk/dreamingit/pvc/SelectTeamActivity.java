@@ -46,11 +46,11 @@ public class SelectTeamActivity extends Activity {
 
 	    public void onServiceConnected(ComponentName className, IBinder binder) {
 	      server = ((ServerService.LocalBinder) binder).getService();
-	      Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
+	      //Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
 	    }
 
 	    public void onServiceDisconnected(ComponentName className) {
-	    	Toast.makeText(getApplicationContext(), "DisConnected", Toast.LENGTH_SHORT).show();
+	    	//Toast.makeText(getApplicationContext(), "DisConnected", Toast.LENGTH_SHORT).show();
 	      //server = null;
 	    }
 	  };
