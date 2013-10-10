@@ -159,7 +159,6 @@ protected void onStart() {
 				post("statuseg", "USADone");
 			} else
 			{
-				setStory(R.string.usa_endlose);
 			}
 		} else
 		{
@@ -168,7 +167,6 @@ protected void onStart() {
 				post("statuseg", "USSRDone");
 			} else
 			{
-				setStory(R.string.ussr_endlose);
 			}
 		}
 	}

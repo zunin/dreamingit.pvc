@@ -77,6 +77,7 @@ public final class MainActivity extends FragmentActivity
     
     public static boolean ThreeFiveChosen = false;
     public static boolean NodeOneWon = false;
+    public static boolean NodeOneFirst = false;
     public static boolean win = false;
     public static boolean RadarBlownUp = false;
     private boolean firstTimeChange = true;
@@ -107,21 +108,21 @@ public final class MainActivity extends FragmentActivity
 		//get those coordinates, get them. real dirty
 		Resources res = getResources();
 		coordinateList = new ArrayList<String>();
-		coordinateList.add(res.getString(R.string.coord_s));
-		coordinateList.add(res.getString(R.string.coord_1USA));
-		coordinateList.add(res.getString(R.string.coord_1USSR));
-		coordinateList.add(res.getString(R.string.coord_15USA));
-		coordinateList.add(res.getString(R.string.coord_15USSR));
-		coordinateList.add(res.getString(R.string.coord_2));
-		coordinateList.add(res.getString(R.string.coord_3USA));
-		coordinateList.add(res.getString(R.string.coord_3USSR));
-		coordinateList.add(res.getString(R.string.coord_35USA));
-		coordinateList.add(res.getString(R.string.coord_35USSR));
-		coordinateList.add(res.getString(R.string.coord_4USA));
-		coordinateList.add(res.getString(R.string.coord_4USSR));
-		coordinateList.add(res.getString(R.string.coord_5USA));
-		coordinateList.add(res.getString(R.string.coord_5USSR));
-		coordinateList.add(res.getString(R.string.coord_EndShared));
+		coordinateList.add(res.getString(R.string.coord_s));		//0
+		coordinateList.add(res.getString(R.string.coord_1USA));		//1
+		coordinateList.add(res.getString(R.string.coord_1USSR));	//2
+		coordinateList.add(res.getString(R.string.coord_15USA));	//3
+		coordinateList.add(res.getString(R.string.coord_15USSR));	//4
+		coordinateList.add(res.getString(R.string.coord_2));		//5
+		coordinateList.add(res.getString(R.string.coord_3USA));		//6
+		coordinateList.add(res.getString(R.string.coord_3USSR));	//7
+		coordinateList.add(res.getString(R.string.coord_35USA));	//8
+		coordinateList.add(res.getString(R.string.coord_35USSR));	//9
+		coordinateList.add(res.getString(R.string.coord_4USA));		//10
+		coordinateList.add(res.getString(R.string.coord_4USSR));	//11
+		coordinateList.add(res.getString(R.string.coord_5USA));		//12
+		coordinateList.add(res.getString(R.string.coord_5USSR));	//13
+		coordinateList.add(res.getString(R.string.coord_EndShared));//14
 		//coordinateList.add("56.171794, 10.189998"); //Nygaard
 		//coordinateList.add("56.170937, 10.190135"); //Hjørnet af StorCenter Nord
 		
@@ -425,9 +426,9 @@ public final class MainActivity extends FragmentActivity
 				{break;}
 				return NodeFive.class;		//5: Shared
 			case 13:
-				if (oldNode.equals("NodeEnd"))
+				if (oldNode.equals("NodeFiveTwo") || oldNode.equals("NodeFive"))
 				{break;}
-				return NodeEnd.class;		//End: USA
+				return NodeFive.class;		//End: USA
 			case 14:
 				if (oldNode.equals("NodeEnd"))
 				{break;}
@@ -463,7 +464,7 @@ public final class MainActivity extends FragmentActivity
 		{
 			if (team.equals("USA"))
 			{
-				if (NodeOneWon)
+				if (NodeOneFirst)
 				{
 					addHintOverlay(coordinateList.get(5), radius); //Shared2
 				} else
@@ -472,7 +473,7 @@ public final class MainActivity extends FragmentActivity
 				}
 			} else //team = USSR
 			{
-				if (NodeOneWon)
+				if (NodeOneFirst)
 				{
 					addHintOverlay(coordinateList.get(5), radius); //Shared2
 				} else
@@ -543,5 +544,21 @@ public final class MainActivity extends FragmentActivity
 		} 
 		
 	}
-	
+	/*
+	 *	coordinateList.add(res.getString(R.string.coord_s));		//0
+		coordinateList.add(res.getString(R.string.coord_1USA));		//1
+		coordinateList.add(res.getString(R.string.coord_1USSR));	//2
+		coordinateList.add(res.getString(R.string.coord_15USA));	//3
+		coordinateList.add(res.getString(R.string.coord_15USSR));	//4
+		coordinateList.add(res.getString(R.string.coord_2));		//5
+		coordinateList.add(res.getString(R.string.coord_3USA));		//6
+		coordinateList.add(res.getString(R.string.coord_3USSR));	//7
+		coordinateList.add(res.getString(R.string.coord_35USA));	//8
+		coordinateList.add(res.getString(R.string.coord_35USSR));	//9
+		coordinateList.add(res.getString(R.string.coord_4USA));		//10
+		coordinateList.add(res.getString(R.string.coord_4USSR));	//11
+		coordinateList.add(res.getString(R.string.coord_5USA));		//12
+		coordinateList.add(res.getString(R.string.coord_5USSR));	//13
+		coordinateList.add(res.getString(R.string.coord_EndShared));//14
+	 * */
 }

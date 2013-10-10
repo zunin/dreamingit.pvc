@@ -74,6 +74,7 @@ public class NodeOne extends EmptyNode
 			{
 				setStory(R.string.usa_1_direct);
 				post();
+				MainActivity.NodeOneFirst = true;
 				
 			} else
 			{
@@ -85,6 +86,7 @@ public class NodeOne extends EmptyNode
 			{
 				setStory(R.string.ussr_1_direct);
 				post();
+				MainActivity.NodeOneFirst = true;
 				
 			} else
 			{
