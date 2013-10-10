@@ -79,6 +79,7 @@ public final class MainActivity extends FragmentActivity
     public static boolean NodeOneWon = false;
     public static boolean win = false;
     public static boolean RadarBlownUp = false;
+    private boolean firstTimeChange = true;
     
     protected PowerManager.WakeLock mWakeLock;
     private static final LatLng UNIPARKEN = new LatLng(56.168070, 10.204603);
@@ -101,6 +102,7 @@ public final class MainActivity extends FragmentActivity
         final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "My Tag");
         this.mWakeLock.acquire();
+        
 		
 		//get those coordinates, get them. real dirty
 		Resources res = getResources();
@@ -117,9 +119,9 @@ public final class MainActivity extends FragmentActivity
 		coordinateList.add(res.getString(R.string.coord_35USSR));
 		coordinateList.add(res.getString(R.string.coord_4USA));
 		coordinateList.add(res.getString(R.string.coord_4USSR));
-		coordinateList.add(res.getString(R.string.coord_5));
-		coordinateList.add(res.getString(R.string.coord_EUSA));
-		coordinateList.add(res.getString(R.string.coord_EUSSR));
+		coordinateList.add(res.getString(R.string.coord_5USA));
+		coordinateList.add(res.getString(R.string.coord_5USSR));
+		coordinateList.add(res.getString(R.string.coord_EndShared));
 		//coordinateList.add("56.171794, 10.189998"); //Nygaard
 		//coordinateList.add("56.170937, 10.190135"); //Hjørnet af StorCenter Nord
 		
@@ -129,14 +131,19 @@ public final class MainActivity extends FragmentActivity
 		//String nygaard = "56.171794, 10.189998";
 		//coordinateList.add(8, nygaard);
 		//coordinateList.add(9, nygaard);
-		String matKant = "56.166594, 10.200161";
-		coordinateList.add(1, matKant);
-		coordinateList.add(2, matKant);
+		//String debugcoord = "56.168775, 10.196905";
+		//coordinateList.add(1, debugcoord);
+		//coordinateList.add(2, debugcoord);
 		
 		//onResume stuff
 		setUpMapIfNeeded();
         setUpLocationClientIfNeeded();
         mLocationClient.connect();
+        
+        // Bind to LocalService
+        Intent serviceIntent = new Intent(this, ServerService.class);
+        bindService(serviceIntent, mConnection, Context.BIND_AUTO_CREATE);
+        
 	}
 	/**
 	 * * START SERVICE
@@ -164,11 +171,8 @@ public final class MainActivity extends FragmentActivity
     @Override
     protected void onResume() {
         super.onResume();
-        // Bind to LocalService
-        Intent intent = new Intent(this, ServerService.class);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
         //bindService(new Intent(this, ServerService.class), mConnection, Context.BIND_AUTO_CREATE);
-        
+
         
         setUpMapIfNeeded();
         setUpLocationClientIfNeeded();
@@ -247,7 +251,15 @@ public final class MainActivity extends FragmentActivity
 		
 		addHintOverlay(latitude, longitude, 10);
         */
+		try{
 		server.updateAllFlags();
+		} catch (IsTerribleException e)
+		{e.printStackTrace();}
+		if (firstTimeChange){
+			firstTimeChange=false;
+			return;
+		}
+		
 		for (String coordinate : coordinateList)
 		{
 			
@@ -527,15 +539,7 @@ public final class MainActivity extends FragmentActivity
 			//Get there by Activity (geiger)
 		} else if (oldNode.equals("NodeFiveTwo")) //Go to End
 		{
-			if (team.equals("USA"))
-			{
-				addHintOverlay(coordinateList.get(13), radius); //USAEND
-
-				
-			} else //team = USSR
-			{
-				addHintOverlay(coordinateList.get(14), radius); //USSREND
-			}	
+				addHintOverlay(coordinateList.get(14), radius); //end_shared
 		} 
 		
 	}

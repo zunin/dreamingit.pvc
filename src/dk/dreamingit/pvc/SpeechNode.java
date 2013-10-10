@@ -22,8 +22,8 @@ public class SpeechNode extends EmptyNode
 		
 		
 		//Skip intro
-		mediaPlayer.stop();
-		onCompletion(mediaPlayer);
+		//mediaPlayer.stop();
+		//onCompletion(mediaPlayer);
 
 	}
 

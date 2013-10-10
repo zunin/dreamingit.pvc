@@ -97,6 +97,11 @@ public class ServerService extends Service {
     	thread.start(); 
 		
 	}
+   
+    public String getResponse()
+    {
+    	return responseString;
+    }
     
     public String getErrorcode()
     {
@@ -111,7 +116,6 @@ public class ServerService extends Service {
     	        try {
     	           
     	        	String url = "http://rumapp.dreamingit.dk/post.php/";
-    	    	    //String url = "http://ip.jsontest.com/?callback=showMyIP";	
     	    		
     	            // Create a new HttpClient and Post Header
     	            HttpClient httpclient = new DefaultHttpClient();
@@ -127,16 +131,26 @@ public class ServerService extends Service {
     	                HttpResponse response = httpclient.execute(httppost);
     	                
     	            } catch (ClientProtocolException e) {
+    	            	e.printStackTrace();
     	            	errorcode += e.getClass();
     	            } catch (IOException e) {
+    	            	e.printStackTrace();
     	            	errorcode += e.getClass();
     	            }
-    	        } catch (Exception e)
-    	        {errorcode += e.getClass();}
+    	        } catch (Exception e){
+    	        	errorcode += e.getClass();
+    	        e.printStackTrace();	
+    	        }
     	    }
     	      });
 
     	thread.start(); 
+    	try {
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
     
@@ -150,7 +164,8 @@ public class ServerService extends Service {
         return mBinder;
     }
     
-    public void updateAllFlags()
+    
+    public void updateAllFlags() throws IsTerribleException
     {
     	openConnection();
     	JSONObject json = new JSONObject();
@@ -159,6 +174,7 @@ public class ServerService extends Service {
     	} catch (JSONException e)
     	{
     		json = null;
+    		
     	} finally
     	{
     		if (json != null)
@@ -169,7 +185,6 @@ public class ServerService extends Service {
     		}
 
     	}
-    	
         
     }
     
@@ -234,8 +249,8 @@ public class ServerService extends Service {
     {
     	if (MainActivity.team.equals("USA"))
     	{
-        	if (jsonIsValue(json, "NodeEUSSR", "NotDone") &&
-        			jsonIsValue(json, "NodeEUSSR", "NotDone"))
+        	if (jsonIsValue(json, "NodeEGUSSR", "NotDone") &&
+        			jsonIsValue(json, "NodeEGUSA", "NotDone"))
         	{
         		MainActivity.win = true;
         	} else
@@ -291,3 +306,12 @@ public class ServerService extends Service {
     	return false;
     }
 }
+
+class IsTerribleException extends Exception
+{
+	public IsTerribleException()
+	{
+		//
+	}
+	
+ }

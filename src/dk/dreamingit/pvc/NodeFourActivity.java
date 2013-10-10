@@ -100,13 +100,20 @@ public class NodeFourActivity extends FragmentActivity
 		nodeFourLocation.setLongitude(longitude);
 		
 		//Setup taskLocation
-		coordinate = getResources().getString(R.string.coord_5);
+		if (team.equals("USA"))
+		{
+			coordinate = getResources().getString(R.string.coord_5USA);
+		} else
+		{
+			coordinate = getResources().getString(R.string.coord_5USSR);
+		}
+		
 		//coordinate = "56.169727, 10.189641"; //Stor Center Nord Slut
 		//coordinate = "56.171794, 10.189998"; //Nygaard
 		
 		latitude = Double.valueOf(coordinate.substring(0, 8));
 		longitude = Double.valueOf(coordinate.substring(10, 18));
-		taskLocation = new Location("Task location");
+		taskLocation = new Location("Node 5 location");
 		taskLocation.setLatitude(latitude);
 		taskLocation.setLongitude(longitude);
 		

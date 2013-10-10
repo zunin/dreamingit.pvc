@@ -49,7 +49,7 @@ public class WaitingForTeamActivity extends Activity {
 	private Runnable repeater = new Runnable(){
         public void run(){
             server.getOtherTeam();
-            Toast.makeText(getApplicationContext(), "gameStarted: "+gameStarted, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "gameStarted: "+gameStarted, Toast.LENGTH_SHORT).show();
             
             if (gameStarted.equals("USA"))
             {
