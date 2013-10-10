@@ -89,7 +89,7 @@ public class NodeFourActivity extends FragmentActivity
 		/*double latitude = Double.valueOf(coordinate.substring(0, 8));
 		double longitude = Double.valueOf(coordinate.substring(10, 18));*/
 		
-		coordinate = "56.170937, 10.190135"; //Stor Center Nord Hjørne
+		//coordinate = "56.170937, 10.190135"; //Stor Center Nord Hjørne
 		//coordinate = "56.171794, 10.189998"; //Nygaard
 		
 		double latitude = Double.valueOf(coordinate.substring(0, 8));
@@ -100,8 +100,8 @@ public class NodeFourActivity extends FragmentActivity
 		nodeFourLocation.setLongitude(longitude);
 		
 		//Setup taskLocation
-		//coordinate = getResources().getString(R.string.coord_5);
-		coordinate = "56.169727, 10.189641"; //Stor Center Nord Slut
+		coordinate = getResources().getString(R.string.coord_5);
+		//coordinate = "56.169727, 10.189641"; //Stor Center Nord Slut
 		//coordinate = "56.171794, 10.189998"; //Nygaard
 		
 		latitude = Double.valueOf(coordinate.substring(0, 8));

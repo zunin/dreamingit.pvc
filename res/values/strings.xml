@@ -60,5 +60,8 @@
     <!-- Service -->
     <string name="service_name">Server Service (den med dataen)</string>
     <string name="title_activity_waiting_for_team">WaitingForTeamActivity</string>
+    
+    <!-- WaitingForOtherTeam -->
+    <string name="waiting_for_team">Vent venligst mens der bliver valgt hold.</string>
 
 </resources>

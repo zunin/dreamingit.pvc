@@ -2,6 +2,7 @@ package dk.dreamingit.pvc;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Vibrator;
 import android.view.View;
 
 public class NodeTwoTwo extends EmptyNode {
@@ -10,6 +11,9 @@ public class NodeTwoTwo extends EmptyNode {
 	protected void inflateNarrative() {
 		MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.alarm);
 		mediaPlayer.start();
+		//Vibrator
+				Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+				v.vibrate(1000);
 		
 		if (team.equals("USA"))
 		{

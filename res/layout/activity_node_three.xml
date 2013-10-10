@@ -18,7 +18,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/listenStoryText" />
+        android:text="@string/listenStoryText" 
+        android:textSize="20dp"/>
     
     <TextView android:id="@+id/voice_clue"
         android:layout_width="wrap_content"

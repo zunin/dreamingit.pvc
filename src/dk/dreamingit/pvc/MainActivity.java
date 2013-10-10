@@ -125,10 +125,13 @@ public final class MainActivity extends FragmentActivity
 		
 		//addHintOverlay(56.170937, 10.190135, 1); //SCN - start
 		//addHintOverlay(56.169727, 10.189641, 1); //SCN - slut
-		//8 + 9
+
 		//String nygaard = "56.171794, 10.189998";
 		//coordinateList.add(8, nygaard);
 		//coordinateList.add(9, nygaard);
+		String matKant = "56.166594, 10.200161";
+		coordinateList.add(1, matKant);
+		coordinateList.add(2, matKant);
 		
 		//onResume stuff
 		setUpMapIfNeeded();
@@ -466,7 +469,7 @@ public final class MainActivity extends FragmentActivity
 				}
 			} 
 				
-		}  else if (oldNode.equals("OneFive")) //Go to NodeTwo
+		}  else if (oldNode.equals("NodeOneFive")) //Go to NodeTwo
 		{
 			addHintOverlay(coordinateList.get(5), radius); //Shared2
 		} else if (oldNode.equals("NodeTwoTwo")) //Go to NodeThree
