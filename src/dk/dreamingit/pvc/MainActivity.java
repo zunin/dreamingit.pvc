@@ -105,7 +105,7 @@ public final class MainActivity extends FragmentActivity
         this.mWakeLock.acquire();
         
 		
-		//get those coordinates, get them. real dirty
+		//Get the coordinates
 		Resources res = getResources();
 		coordinateList = new ArrayList<String>();
 		coordinateList.add(res.getString(R.string.coord_s));		//0
